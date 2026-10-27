@@ -62,7 +62,6 @@
     .btn-athar-outline:hover {
       background-color: #F4ECE1;
     }
-    /* Custom Scrollbars */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #FAF7F2; }
     ::-webkit-scrollbar-thumb { background: #C59A58; border-radius: 3px; }
@@ -86,11 +85,8 @@
             <span class="text-[10px] font-bold text-[#8C6239] bg-[#F4ECE1] px-2 py-0.5 rounded-full">Admin Dashboard</span>
           </div>
         </div>
-        <!-- Close Mobile Button -->
         <button onclick="toggleSidebar()" class="lg:hidden p-1.5 text-gray-400 hover:text-gray-600 rounded-lg">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
 
@@ -98,40 +94,40 @@
       <nav class="p-4 space-y-1.5">
         
         <!-- 1. Overview -->
-        <button onclick="switchView('overview')" data-view="overview" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-bold bg-[#8C6239] text-white shadow-md transition-all text-right">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="switchView('overview')" data-view="overview" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-bold bg-[#8C6239] text-white shadow-md transition-all text-right">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
           </svg>
           <span>نظرة عامة (Overview)</span>
         </button>
 
         <!-- 2. Courses -->
-        <button onclick="switchView('courses')" data-view="courses" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="switchView('courses')" data-view="courses" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
           </svg>
           <span>إدارة الدورات والمحتوى</span>
         </button>
 
         <!-- 3. Students -->
-        <button onclick="switchView('students')" data-view="students" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="switchView('students')" data-view="students" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
           </svg>
           <span>إدارة الطلاب والاشتراكات</span>
         </button>
 
         <!-- 4. Activation Codes -->
-        <button onclick="switchView('codes')" data-view="codes" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="switchView('codes')" data-view="codes" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
           </svg>
           <span>أكواد التفعيل والاشتراك</span>
         </button>
 
         <!-- 5. Settings -->
-        <button onclick="switchView('settings')" data-view="settings" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="switchView('settings')" data-view="settings" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
           </svg>
@@ -145,9 +141,7 @@
     <div class="p-4 border-t border-[#EBE3D5] space-y-3">
       <a href="index.html" class="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl border border-[#E0D6C8] text-xs font-bold text-[#8C6239] hover:bg-[#FAF7F2] transition-colors">
         <span>زيارة المنصة الرئيسية</span>
-        <svg class="w-3.5 h-3.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-        </svg>
+        <svg class="w-3.5 h-3.5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
       </a>
 
       <div class="flex items-center gap-3 p-2 rounded-xl bg-[#FAF7F2] border border-[#EBE3D5]">
@@ -169,12 +163,10 @@
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
     
     <!-- Topbar -->
-    <header class="h-20 bg-white border-b border-[#EBE3D5] flex items-center justify-between px-4 sm:px-8 z-10 flex-shrink-0">
+    <header class="h-20 bg-white border-b border-[#EBE3D5] flex items-center justify-between px-4 sm:px-8 z-10 flex-shrink-0 relative">
       <div class="flex items-center gap-4">
         <button onclick="toggleSidebar()" class="lg:hidden p-2 text-[#8C6239] hover:bg-[#F4ECE1] rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
         <div>
           <h1 class="text-lg md:text-xl font-bold text-[#332B25] font-heading">لوحة الإدارة المتقدمة</h1>
@@ -183,19 +175,35 @@
       </div>
 
       <div class="flex items-center gap-3 sm:gap-4">
-        <!-- Live Firebase Badge -->
-        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold">
-          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        <!-- Live Firebase Status Indicator -->
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span>Firebase Ready</span>
         </div>
 
-        <!-- Quick Notifications -->
-        <button class="relative p-2.5 text-[#5E544B] hover:text-[#8C6239] hover:bg-[#FAF7F2] rounded-xl transition-colors">
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#8C6239]"></span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-          </svg>
-        </button>
+        <!-- Notifications Bell & Dropdown -->
+        <div class="relative">
+          <button onclick="toggleNotifications()" class="relative p-2.5 text-[#5E544B] hover:text-[#8C6239] hover:bg-[#FAF7F2] rounded-xl transition-colors">
+            <span id="notifBadge" class="hidden absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#8C6239] text-white text-[9px] font-bold flex items-center justify-center">0</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+          </button>
+
+          <!-- Notifications Dropdown Box -->
+          <div id="notificationsDropdown" class="hidden absolute left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-[#EBE3D5] z-50 overflow-hidden">
+            <div class="p-3.5 bg-[#FAF7F2] border-b border-[#EBE3D5] flex items-center justify-between">
+              <h4 class="font-bold text-xs text-[#332B25] font-heading">التنبيهات والإشعارات</h4>
+              <div class="flex gap-2 text-[10px]">
+                <button onclick="markAllNotificationsRead()" class="text-[#8C6239] hover:underline font-bold">تحديد الكل كمقروء</button>
+                <button onclick="clearNotifications()" class="text-gray-400 hover:text-red-500 font-semibold">مسح</button>
+              </div>
+            </div>
+            <div id="notificationsList" class="max-h-72 overflow-y-auto divide-y divide-[#F4ECE1]">
+              <!-- Injected by admin.js -->
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -208,8 +216,9 @@
         <!-- Welcome Banner -->
         <div class="bg-gradient-to-r from-[#FAF7F2] via-white to-[#F4ECE1] p-6 sm:p-8 rounded-3xl border border-[#EBE3D5] flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F4ECE1] text-[#8C6239] text-xs font-bold mb-3">
-              <span>✨</span> مرحباً بعودتك، مدير النظام
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F4ECE1] text-[#8C6239] text-xs font-bold mb-3 border border-[#EBE3D5]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#8C6239]"></span>
+              <span>لوحة الإدارة المركزية</span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-[#332B25] font-heading">
               منصة أكاديمية أثر التعليمية
@@ -223,7 +232,11 @@
               <span>+ إضافة دورة جديدة</span>
             </button>
             <button onclick="switchView('codes')" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex items-center gap-2">
-              <span>⚡ توليد أكواد تفعيل</span>
+              <span>توليد أكواد تفعيل</span>
+            </button>
+            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex items-center gap-2" title="تصدير بيانات الطلاب إلى ملف Excel">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              <span>تصدير تقرير الطلاب (CSV)</span>
             </button>
           </div>
         </div>
@@ -284,8 +297,8 @@
             <div>
               <p class="text-xs font-bold text-[#6B625B]">متوسط نسبة إكمال الدروس</p>
               <h3 id="statCompletionRate" class="text-2xl font-extrabold text-[#332B25] mt-1 font-heading">0%</h3>
-              <span class="text-[11px] font-bold text-amber-700 flex items-center gap-1 mt-2">
-                <span>⭐ تقييم ممتاز</span>
+              <span class="text-[11px] font-bold text-[#8C6239] flex items-center gap-1 mt-2">
+                <span>تقييم مرتفع للمناهج</span>
               </span>
             </div>
             <div class="w-12 h-12 rounded-2xl bg-[#FCECEE] text-[#C25E68] flex items-center justify-center font-bold">
@@ -336,7 +349,7 @@
             <h2 class="text-2xl font-bold text-[#332B25] font-heading">إدارة الدورات والمحتوى التعليمي</h2>
             <p class="text-xs text-[#6B625B]">إنشاء المناهج، تنظيم الفصول والدروس، وتحديد أسعار الاشتراكات</p>
           </div>
-          <button onclick="openModal('addCourseModal')" class="btn-athar-primary py-2.5 px-5 text-sm font-bold flex items-center gap-2 shadow-sm">
+          <button onclick="openModal('addCourseModal')" class="btn-athar-primary py-2.5 px-5 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm">
             <span>+ إضافة دورة جديدة</span>
           </button>
         </div>
@@ -357,21 +370,33 @@
             <p class="text-xs text-[#6B625B]">متابعة حسابات الطلاب، تمكين أو حظر الحسابات، ومراقبة التقدم</p>
           </div>
 
-          <!-- Search Input -->
-          <div class="relative w-full sm:w-64">
-            <input type="text" id="studentSearchInput" oninput="onStudentSearch(event)" placeholder="بحث بالاسم أو الهاتف..."
-                   class="w-full pr-10 pl-4 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white focus:outline-none focus:ring-2 focus:ring-[#8C6239]">
-            <svg class="w-4 h-4 text-gray-400 absolute right-3.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <!-- Search Input -->
+            <div class="relative flex-grow sm:w-64">
+              <input type="text" id="studentSearchInput" oninput="onStudentSearch(event)" placeholder="بحث بالاسم أو الهاتف..."
+                     class="w-full pr-10 pl-4 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white focus:outline-none focus:ring-2 focus:ring-[#8C6239]">
+              <svg class="w-4 h-4 text-gray-400 absolute right-3.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+
+            <!-- Add Student Manually Button -->
+            <button onclick="openModal('addStudentModal')" class="btn-athar-primary py-2 px-3 text-xs font-bold whitespace-nowrap">
+              + إضافة طالب
+            </button>
+
+            <!-- Export CSV -->
+            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2 px-3 text-xs font-bold whitespace-nowrap" title="تصدير جدول الطلاب">
+              تصدير CSV
+            </button>
           </div>
         </div>
 
         <!-- Students Filter Bar -->
         <div class="flex gap-2">
-          <button onclick="filterStudents('all')" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white">الكل</button>
-          <button onclick="filterStudents('active')" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المفعلون فقط</button>
-          <button onclick="filterStudents('blocked')" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المحظورون</button>
+          <button onclick="filterStudents('all')" data-filter="all" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white">الكل</button>
+          <button onclick="filterStudents('active')" data-filter="active" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المفعلون فقط</button>
+          <button onclick="filterStudents('blocked')" data-filter="blocked" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المحظورون</button>
         </div>
 
         <!-- Students Table -->
@@ -405,13 +430,21 @@
             <h2 class="text-2xl font-bold text-[#332B25] font-heading">أكواد التفعيل والاشتراكات (Activation Codes)</h2>
             <p class="text-xs text-[#6B625B]">توليد أكواد اشتراك فريدة لتقديمها لأولياء الأمور لتفعيل الحسابات بسهولة</p>
           </div>
+          <div class="flex items-center gap-2">
+            <button onclick="exportCodesCSV()" class="btn-athar-outline py-2 px-3 text-xs font-bold">
+              تصدير الأكواد (CSV)
+            </button>
+            <button onclick="deleteUsedCodes()" class="py-2 px-3 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition-colors">
+              تنظيف الأكواد المستهلكة
+            </button>
+          </div>
         </div>
 
         <!-- Code Generator Tool -->
         <div class="bg-white rounded-2xl p-6 border border-[#EBE3D5] shadow-sm">
-          <h3 class="font-bold text-sm text-[#332B25] mb-4 flex items-center gap-2">
-            <span class="text-[#8C6239]">⚡</span>
-            <span>توليد أكواد اشتراك جديدة دفعة واحدة:</span>
+          <h3 class="font-bold text-xs sm:text-sm text-[#332B25] mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#8C6239]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+            <span>توليد أكواد اشتراك جديدة:</span>
           </h3>
 
           <form onsubmit="handleGenerateCodes(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -443,10 +476,17 @@
 
             <div class="flex items-end">
               <button type="submit" class="w-full btn-athar-primary py-2 px-4 text-xs font-bold shadow-sm">
-                توليد الأكواد الآن 🚀
+                توليد الأكواد
               </button>
             </div>
           </form>
+        </div>
+
+        <!-- Filter codes tabs -->
+        <div class="flex gap-2">
+          <button onclick="filterCodes('all')" data-filter="all" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white">الكل</button>
+          <button onclick="filterCodes('available')" data-filter="available" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المتاحة فقط</button>
+          <button onclick="filterCodes('used')" data-filter="used" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المستخدمة</button>
         </div>
 
         <!-- Generated Codes Table -->
@@ -485,12 +525,12 @@
           <!-- Firebase Config Card -->
           <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-[#EBE3D5] shadow-sm">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg">
-                🔥
+              <div class="w-10 h-10 rounded-xl bg-[#F4ECE1] text-[#8C6239] flex items-center justify-center font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
               </div>
               <div>
                 <h3 class="font-bold text-base text-[#332B25] font-heading">بيانات مشروع Firebase (Web SDK)</h3>
-                <p class="text-xs text-[#6B625B]">يمكنك جلب هذه القيم مباشرة من Firebase Console > Project Settings</p>
+                <p class="text-xs text-[#6B625B]">تُحفظ الإعدادات محلياً وتُستخدم لربط Firestore والمصادقة</p>
               </div>
             </div>
 
@@ -516,11 +556,13 @@
                 </div>
               </div>
 
+              <div id="fbConnectionStatus" class="hidden text-xs py-1"></div>
+
               <div class="pt-3 flex gap-3">
                 <button type="submit" class="btn-athar-primary py-2.5 px-6 text-xs font-bold">
                   حفظ إعدادات Firebase
                 </button>
-                <button type="button" onclick="alert('جاري فحص اتصال Firebase... تم بنجاح!')" class="btn-athar-outline py-2.5 px-4 text-xs font-bold">
+                <button type="button" onclick="testFirebaseConnection()" class="btn-athar-outline py-2.5 px-4 text-xs font-bold">
                   فحص الاتصال (Test Connection)
                 </button>
               </div>
@@ -549,13 +591,27 @@
               </div>
             </div>
 
-            <!-- Maintenance & Reset -->
+            <!-- Backup & Restore -->
             <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm">
-              <h3 class="font-bold text-sm text-red-600 mb-2">إعادة ضبط البيانات</h3>
-              <p class="text-xs text-[#6B625B] mb-4">استعادة البيانات التجريبية الافتراضية وحذف التغييرات المحلية</p>
-              <button onclick="resetAdminData()" class="px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-xs font-bold transition-colors">
-                إعادة ضبط البيانات الأولية 🔄
-              </button>
+              <h3 class="font-bold text-sm text-[#332B25] mb-2">النسخ الاحتياطي للنظام</h3>
+              <p class="text-xs text-[#6B625B] mb-4">تنزيل أو استعادة كافة بيانات الطلاب والدورات والأكواد كملف JSON كامل</p>
+              
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button onclick="exportFullBackupJSON()" class="btn-athar-primary py-2 px-3 text-xs font-bold flex-1 text-center">
+                  تصدير نسخة احتياطية (JSON)
+                </button>
+
+                <label class="btn-athar-outline py-2 px-3 text-xs font-bold flex-1 text-center cursor-pointer">
+                  <span>استعادة نسخة</span>
+                  <input type="file" accept=".json" onchange="importBackupJSON(event)" class="hidden">
+                </label>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-[#F4ECE1]">
+                <button onclick="resetAdminData()" class="text-red-500 hover:text-red-700 text-xs font-bold transition-colors">
+                  إعادة ضبط البيانات إلى الوضع الأولي
+                </button>
+              </div>
             </div>
 
           </div>
@@ -573,9 +629,7 @@
     <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-[#EBE3D5]">
       
       <button onclick="closeModal('addCourseModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
 
       <div class="mb-5">
@@ -620,9 +674,63 @@
 
         <div class="pt-3 flex gap-3">
           <button type="submit" class="btn-athar-primary py-2.5 px-6 text-sm font-bold flex-1">
-            حفظ وإضافة الدورة 🚀
+            حفظ وإضافة الدورة
           </button>
           <button type="button" onclick="closeModal('addCourseModal')" class="btn-athar-outline py-2.5 px-4 text-sm font-bold">
+            إلغاء
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADD STUDENT ================= -->
+  <div id="addStudentModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-[#EBE3D5]">
+      
+      <button onclick="closeModal('addStudentModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-xl font-bold text-[#332B25] font-heading">إضافة طالب جديد</h3>
+        <p class="text-xs text-[#6B625B]">تسجيل بيانات الطالب وربطه بمسار تعليمي</p>
+      </div>
+
+      <form onsubmit="handleAddStudent(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">اسم الطالب الرباعي</label>
+          <input type="text" id="newStdName" required placeholder="مثال: يحيى أحمد الصالح" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#4A423B] mb-1">عمر الطفل</label>
+            <input type="number" id="newStdAge" min="3" max="8" value="5" required class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#4A423B] mb-1">المسار التعليمي</label>
+            <select id="newStdCourse" required class="w-full px-3 py-2.5 rounded-xl border border-[#E0D6C8] text-sm bg-white">
+              <option value="القرآن الكريم">القرآن الكريم</option>
+              <option value="تأسيس عربي">تأسيس عربي</option>
+              <option value="تأسيس إنجليزي">تأسيس إنجليزي</option>
+              <option value="تأسيس حساب">تأسيس حساب</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">رقم هاتف ولي الأمر (واتساب)</label>
+          <input type="tel" id="newStdPhone" required placeholder="+966 50 123 4567" dir="ltr" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm text-right">
+        </div>
+
+        <div class="pt-3 flex gap-3">
+          <button type="submit" class="btn-athar-primary py-2.5 px-6 text-sm font-bold flex-1">
+            إضافة الطالب
+          </button>
+          <button type="button" onclick="closeModal('addStudentModal')" class="btn-athar-outline py-2.5 px-4 text-sm font-bold">
             إلغاء
           </button>
         </div>
