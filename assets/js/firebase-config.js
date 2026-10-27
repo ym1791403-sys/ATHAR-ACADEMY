@@ -1,23 +1,25 @@
 /**
- * ATHAR ACADEMY - Firebase Configuration & Database Bridge
- * Supports both Firebase Realtime Database & Cloud Firestore with Open Read/Write Rules
+ * ATHAR ACADEMY - Live Firebase Configuration & Database Bridge
+ * Connected Project: athar-28099
  */
 
-// Default Configuration with Database URL placeholder
 const defaultFirebaseConfig = {
-  apiKey: "AIzaSy_YOUR_FIREBASE_API_KEY",
-  authDomain: "athar-academy.firebaseapp.com",
-  databaseURL: "https://athar-academy-default-rtdb.firebaseio.com",
-  projectId: "athar-academy",
-  storageBucket: "athar-academy.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456"
+  apiKey: "AIzaSyBGSAINAlqmeqPgd3jIkcFLDAhuEpRqNKE",
+  authDomain: "athar-28099.firebaseapp.com",
+  projectId: "athar-28099",
+  storageBucket: "athar-28099.firebasestorage.app",
+  messagingSenderId: "760976572515",
+  appId: "1:760976572515:web:a3fec0eb740c038de6f856",
+  measurementId: "G-4HNNK18BM6",
+  databaseURL: "https://athar-28099-default-rtdb.firebaseio.com"
 };
 
 const FirebaseService = {
+  app: null,
   db: null,
   rtdb: null,
   auth: null,
+  analytics: null,
   isLive: false,
 
   init() {
@@ -25,8 +27,11 @@ const FirebaseService = {
     if (typeof firebase !== 'undefined' && firebase.initializeApp) {
       try {
         if (!firebase.apps.length) {
-          firebase.initializeApp(config);
+          this.app = firebase.initializeApp(config);
+        } else {
+          this.app = firebase.app();
         }
+        
         if (firebase.database) {
           this.rtdb = firebase.database();
         }
@@ -36,17 +41,22 @@ const FirebaseService = {
         if (firebase.auth) {
           this.auth = firebase.auth();
         }
+        if (firebase.analytics && config.measurementId) {
+          try {
+            this.analytics = firebase.analytics();
+          } catch (e) {}
+        }
+        
         this.isLive = true;
-        console.log("Firebase Database connected successfully with open rules.");
+        console.log("Connected live to Firebase Project: athar-28099");
       } catch (err) {
-        console.warn("Firebase initialization notice:", err);
+        console.warn("Firebase live connection notice:", err);
       }
     }
   },
 
   getConfig() {
-    const saved = localStorage.getItem('athar_firebase_config');
-    return saved ? JSON.parse(saved) : defaultFirebaseConfig;
+    return defaultFirebaseConfig;
   },
 
   saveConfig(newConfig) {
@@ -54,55 +64,56 @@ const FirebaseService = {
     this.init();
   },
 
-  // Save Booking in Realtime Database / Firestore
+  // Save Booking in Realtime Database & Firestore
   async saveTrialBooking(bookingData) {
+    let saved = false;
     if (this.rtdb) {
       try {
         await this.rtdb.ref('trial_bookings/' + bookingData.id).set(bookingData);
-        return true;
+        saved = true;
       } catch (e) {
-        console.warn("RTDB write fallback:", e);
+        console.warn("RTDB write:", e);
       }
     }
     if (this.db) {
       try {
         await this.db.collection('trial_bookings').doc(bookingData.id).set(bookingData);
-        return true;
+        saved = true;
       } catch (e) {
-        console.warn("Firestore write fallback:", e);
+        console.warn("Firestore write:", e);
       }
     }
-    return false;
+    return saved;
   },
 
-  // Sync Students
+  // Sync Students List to Firebase
   async syncStudents(studentsList) {
     if (this.rtdb) {
       try {
         await this.rtdb.ref('students').set(studentsList);
         return true;
       } catch (e) {
-        console.warn("RTDB sync students fallback:", e);
+        console.warn("RTDB sync students:", e);
       }
     }
     return false;
   },
 
-  // Sync Activation Codes
+  // Sync Activation Codes to Firebase
   async syncActivationCodes(codesList) {
     if (this.rtdb) {
       try {
         await this.rtdb.ref('activation_codes').set(codesList);
         return true;
       } catch (e) {
-        console.warn("RTDB sync codes fallback:", e);
+        console.warn("RTDB sync codes:", e);
       }
     }
     return false;
   }
 };
 
-// Auto initialize on load
+// Initialize immediately
 if (typeof window !== 'undefined') {
   window.FirebaseService = FirebaseService;
   document.addEventListener('DOMContentLoaded', () => {
