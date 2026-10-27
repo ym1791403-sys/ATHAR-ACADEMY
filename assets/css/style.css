@@ -1,0 +1,196 @@
+/* ========================================================
+   ATHAR ACADEMY (أكاديمية أثر) - Custom Stylesheet
+   Warm earthy gold & ivory palette, playful elegance
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;800&family=Readex+Pro:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #8C6239;
+  --color-primary-hover: #754f2a;
+  --color-primary-light: #F4ECE1;
+  --color-primary-gold: #C59A58;
+  --color-accent-gold: #D4AF37;
+  --color-bg-ivory: #FAF7F2;
+  --color-bg-card: #FFFFFF;
+  --color-text-main: #332B25;
+  --color-text-muted: #6B625B;
+  --color-badge-quran: #EBF2EC;
+  --color-badge-arabic: #F8EFE4;
+  --color-badge-english: #E8F0EA;
+  --color-badge-math: #FCECEE;
+  --font-tajawal: 'Tajawal', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
+}
+
+body {
+  font-family: var(--font-tajawal);
+  background-color: var(--color-bg-ivory);
+  color: var(--color-text-main);
+  overflow-x: hidden;
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-cairo);
+}
+
+/* Background gradient & decorative texture */
+.hero-gradient-bg {
+  background: radial-gradient(circle at 85% 15%, rgba(243, 234, 218, 0.7) 0%, transparent 60%),
+              radial-gradient(circle at 15% 85%, rgba(235, 240, 236, 0.6) 0%, transparent 50%),
+              #FAF7F2;
+}
+
+/* Custom Soft Shadows */
+.athar-shadow-sm {
+  box-shadow: 0 4px 15px -2px rgba(140, 98, 57, 0.08);
+}
+
+.athar-shadow-md {
+  box-shadow: 0 10px 25px -4px rgba(140, 98, 57, 0.12), 0 4px 8px -2px rgba(140, 98, 57, 0.06);
+}
+
+.athar-shadow-lg {
+  box-shadow: 0 20px 35px -5px rgba(140, 98, 57, 0.16), 0 8px 12px -3px rgba(140, 98, 57, 0.08);
+}
+
+/* Button & Action Styles */
+.btn-athar-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(140, 98, 57, 0.25);
+}
+
+.btn-athar-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(140, 98, 57, 0.35);
+}
+
+.btn-athar-primary:active {
+  transform: translateY(0);
+}
+
+.btn-athar-outline {
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  background-color: transparent;
+}
+
+.btn-athar-outline:hover {
+  background-color: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+/* Feature & Track Cards */
+.track-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(224, 214, 200, 0.45);
+  border-radius: 1.5rem;
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 36px -10px rgba(140, 98, 57, 0.15);
+  border-color: rgba(197, 154, 88, 0.5);
+}
+
+.track-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #C59A58, #8C6239);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.track-card:hover::before {
+  opacity: 1;
+}
+
+/* Badges */
+.badge-age {
+  background-color: #8C6239;
+  color: #FFFFFF;
+  font-size: 0.825rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.35rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Animated Floating Elements */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Hero child photo frame */
+.hero-photo-wrapper {
+  position: relative;
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px -10px rgba(140, 98, 57, 0.2);
+  border: 4px solid #FFFFFF;
+  overflow: hidden;
+}
+
+/* Interactive Mini Quiz/Game Box */
+.interactive-playground {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%);
+  border: 2px dashed #E0D6C8;
+  border-radius: 1.75rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F4ECE1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C59A58;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8C6239;
+}
