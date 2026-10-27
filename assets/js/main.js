@@ -251,24 +251,50 @@ window.openCourseModal = function(courseId) {
                   ${ch.title}
                 </h5>
 
-                <div class="space-y-1.5 pr-3 border-r-2 border-[#C59A58]">
-                  ${lessons.map(ls => {
+                <div class="space-y-2 pr-3 border-r-2 border-[#C59A58]">
+                  ${lessons.map((ls, lsIdx) => {
                     const lTitle = typeof ls === 'object' ? ls.title : ls;
                     const vUrl = typeof ls === 'object' ? ls.videoUrl : '';
-                    const dur = typeof ls === 'object' ? ls.duration : '10 دقائق';
+                    const dur = typeof ls === 'object' ? ls.duration : 'ساعة كاملة';
+                    const attachments = (typeof ls === 'object' && ls.attachments) ? ls.attachments : [];
+                    const quiz = (typeof ls === 'object' && ls.quiz) ? ls.quiz : null;
 
                     return `
-                      <div class="flex items-center justify-between bg-white py-2 px-3 rounded-xl border border-[#EBE3D5] text-xs">
-                        <span class="text-[#332B25] font-semibold">${lTitle}</span>
-                        <div class="flex items-center gap-2">
-                          <span class="text-[11px] text-gray-400">${dur || ''}</span>
+                      <div class="bg-white p-3 rounded-xl border border-[#EBE3D5] text-xs space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                          <span class="text-[#332B25] font-semibold">${lTitle}</span>
+                          <span class="text-[11px] text-[#8C6239] bg-[#FAF7F2] px-2 py-0.5 rounded-md font-medium shrink-0">${dur || 'محتوى كامل'}</span>
+                        </div>
+
+                        <!-- Actions: Watch Video & Take Quiz -->
+                        <div class="flex flex-wrap items-center gap-2 pt-1">
                           ${vUrl ? `
-                            <button onclick="openVideoPlayerModal('${encodeURIComponent(vUrl)}', '${encodeURIComponent(lTitle)}')" class="btn-athar-primary py-1 px-2.5 text-[11px] font-bold flex items-center gap-1 shadow-none">
-                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                              <span>مشاهدة</span>
+                            <button onclick="openVideoPlayerModal('${encodeURIComponent(vUrl)}', '${encodeURIComponent(lTitle)}')" class="btn-athar-primary py-1 px-3 text-[11px] font-bold flex items-center gap-1.5 shadow-none">
+                              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                              <span>مشاهدة الشرح</span>
+                            </button>
+                          ` : ''}
+
+                          ${quiz ? `
+                            <button onclick="startStudentQuiz('${course.id}', ${idx}, ${lsIdx})" class="flex items-center gap-1.5 text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors">
+                              <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                              <span>بدء الكويز (${quiz.questions ? quiz.questions.length : 1} أسئلة)</span>
                             </button>
                           ` : ''}
                         </div>
+
+                        <!-- Attachments / PDF Files -->
+                        ${attachments.length > 0 ? `
+                          <div class="pt-1.5 border-t border-gray-100 flex flex-wrap gap-2">
+                            ${attachments.map(att => `
+                              <a href="${att.url}" target="_blank" download class="inline-flex items-center gap-1.5 text-[11px] text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg font-medium transition-colors border border-blue-100">
+                                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                <span>${att.name || 'تحميل ملف PDF مرفق'}</span>
+                                ${att.size ? `<span class="text-[10px] text-blue-500 font-mono">(${att.size})</span>` : ''}
+                              </a>
+                            `).join('')}
+                          </div>
+                        ` : ''}
                       </div>
                     `;
                   }).join('')}
@@ -564,4 +590,145 @@ window.handleForgotPassword = function() {
   if (contact) {
     showMainToast('تم إرسال رابط استعادة كلمة المرور إلى هاتفك');
   }
+};
+
+// ================= INTERACTIVE QUIZ RUNNER FOR STUDENTS =================
+let studentActiveQuiz = null;
+let studentQuizQuestionIdx = 0;
+let studentQuizScore = 0;
+
+window.startStudentQuiz = function(courseId, chIdx, lsIdx) {
+  if (window.AudioEffects) AudioEffects.playClick();
+  const storedCourses = localStorage.getItem('athar_admin_courses');
+  const courses = storedCourses ? JSON.parse(storedCourses) : AtharCoursesData;
+  const course = courses.find(c => c.id === courseId) || AtharCoursesData.find(c => c.id === courseId);
+  if (!course) return;
+
+  const chapter = course.chapters ? course.chapters[chIdx] : null;
+  const lesson = chapter && chapter.lessons ? chapter.lessons[lsIdx] : null;
+  if (!lesson || !lesson.quiz) return;
+
+  studentActiveQuiz = lesson.quiz;
+  studentQuizQuestionIdx = 0;
+  studentQuizScore = 0;
+
+  renderStudentQuizQuestion();
+};
+
+function renderStudentQuizQuestion() {
+  const modal = document.getElementById('quizRunnerModal');
+  const container = document.getElementById('quizRunnerModalContent');
+  if (!modal || !container || !studentActiveQuiz) return;
+
+  const questions = studentActiveQuiz.questions || [];
+  if (studentQuizQuestionIdx >= questions.length) {
+    const percent = Math.round((studentQuizScore / questions.length) * 100);
+    const passed = percent >= (studentActiveQuiz.passingScore || 60);
+
+    container.innerHTML = `
+      <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full mx-4 shadow-2xl border border-[#EBE3D5] text-center">
+        <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center ${passed ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
+          ${passed ? `
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+          ` : `
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          `}
+        </div>
+
+        <h3 class="text-xl font-bold text-[#332B25] mb-2 font-heading">
+          ${passed ? 'تهانينا! لقد اجتزت الكويز بنجاح' : 'محاولة جيدة، يمكنك إعادة الاختبار'}
+        </h3>
+        <p class="text-xs text-gray-500 mb-4">${studentActiveQuiz.title}</p>
+
+        <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] my-4 inline-block px-8">
+          <span class="text-xs text-gray-500 block">درجة الاختبار:</span>
+          <span class="text-3xl font-extrabold text-[#8C6239]">${percent}%</span>
+          <span class="text-[11px] text-gray-400 block mt-1">${studentQuizScore} من ${questions.length} إجابات صحيحة</span>
+        </div>
+
+        <div class="flex gap-3 pt-3">
+          <button onclick="studentQuizQuestionIdx = 0; studentQuizScore = 0; renderStudentQuizQuestion();" class="btn-athar-primary py-2.5 px-4 text-xs font-bold flex-1">
+            إعادة الاختبار
+          </button>
+          <button onclick="closeModal('quizRunnerModal')" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex-1">
+            إغلاق
+          </button>
+        </div>
+      </div>
+    `;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    return;
+  }
+
+  const q = questions[studentQuizQuestionIdx];
+  container.innerHTML = `
+    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full mx-4 shadow-2xl border border-[#EBE3D5]">
+      <button onclick="closeModal('quizRunnerModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
+        <span class="text-xs font-bold text-[#8C6239] bg-[#FAF7F2] px-3 py-1 rounded-full">
+          السؤال ${studentQuizQuestionIdx + 1} من ${questions.length}
+        </span>
+        <span class="text-xs font-bold text-[#332B25]">${studentActiveQuiz.title}</span>
+      </div>
+
+      <h4 class="text-base font-bold text-[#332B25] mb-5 leading-relaxed">
+        ${q.question}
+      </h4>
+
+      <div class="space-y-2.5 mb-5" id="studentQuizOptionsContainer">
+        ${q.options.map((opt, optIdx) => `
+          <button onclick="handleStudentQuizAnswerSelection(${optIdx}, ${q.correctIndex})" 
+                  id="student-quiz-opt-btn-${optIdx}"
+                  class="w-full text-right p-3.5 rounded-xl border border-[#E0D6C8] hover:border-[#8C6239] hover:bg-[#FAF7F2] transition-colors text-xs font-semibold text-[#4A423B] flex items-center justify-between group">
+            <span>${opt}</span>
+            <span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px] text-gray-400 group-hover:border-[#8C6239] group-hover:text-[#8C6239]">
+              ${optIdx + 1}
+            </span>
+          </button>
+        `).join('')}
+      </div>
+
+      <div id="studentQuizFeedbackBox" class="min-h-[2rem] text-xs font-semibold"></div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+window.handleStudentQuizAnswerSelection = function(selectedIdx, correctIdx) {
+  const feedbackBox = document.getElementById('studentQuizFeedbackBox');
+  const btn = document.getElementById(`student-quiz-opt-btn-${selectedIdx}`);
+  const q = studentActiveQuiz.questions[studentQuizQuestionIdx];
+
+  const allBtns = document.querySelectorAll('#studentQuizOptionsContainer button');
+  allBtns.forEach(b => b.disabled = true);
+
+  if (selectedIdx === correctIdx) {
+    studentQuizScore += 1;
+    if (window.AudioEffects) AudioEffects.playSuccess();
+    if (btn) btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800');
+    if (feedbackBox) {
+      feedbackBox.className = "p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 mt-2 text-xs";
+      feedbackBox.innerHTML = `<strong>إجابة صحيحة وممتازة!</strong> ${q.explanation || ''}`;
+    }
+  } else {
+    if (window.AudioEffects) AudioEffects.playClick();
+    if (btn) btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-800');
+    const correctBtn = document.getElementById(`student-quiz-opt-btn-${correctIdx}`);
+    if (correctBtn) correctBtn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800');
+    if (feedbackBox) {
+      feedbackBox.className = "p-3 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 mt-2 text-xs";
+      feedbackBox.innerHTML = `<strong>إجابة غير صحيحة.</strong> ${q.explanation || ''}`;
+    }
+  }
+
+  setTimeout(() => {
+    studentQuizQuestionIdx += 1;
+    renderStudentQuizQuestion();
+  }, 1600);
 };

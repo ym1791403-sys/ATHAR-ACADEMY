@@ -1,4 +1,5 @@
-// ATHAR ACADEMY - Courses & Curriculum Data with Rich Media, Images & Videos
+// ATHAR ACADEMY - Courses & Curriculum Data
+// Full support for Unlimited Duration Videos, PDF/File Attachments, and Interactive Quizzes
 const AtharCoursesData = [
   {
     id: "course-1",
@@ -31,16 +32,69 @@ const AtharCoursesData = [
       {
         title: "الفصل الأول: آداب الاستماع وقصار السور",
         lessons: [
-          { title: "سورة الفاتحة والإخلاص بالتجويد الميسر", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "12 دقيقة" },
-          { title: "سورة الفلق والناس مع الشرح المصور", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "10 دقائق" },
-          { title: "أنشطة الترديد الصوتي المباشر", videoUrl: "", duration: "15 دقيقة" }
+          {
+            id: "ls-101",
+            title: "سورة الفاتحة والإخلاص بالتجويد الميسر",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعة و 15 دقيقة",
+            attachments: [
+              { name: "مذكرة معاني الكلمات والآداب (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "1.8 MB", type: "pdf" }
+            ],
+            quiz: {
+              title: "اختبار فهم سورة الفاتحة والإخلاص",
+              passingScore: 70,
+              questions: [
+                {
+                  question: "ما هي السورة التي تسمى (أم الكتاب) وتفتتح بها المصحف؟",
+                  options: ["سورة الإخلاص", "سورة الفاتحة", "سورة الناس", "سورة الفلق"],
+                  correctIndex: 1,
+                  explanation: "سورة الفاتحة هي أعظم سور القرآن وتسمى بأم الكتاب وأم القرآن."
+                },
+                {
+                  question: "معنى (قل هو الله أحد) أن الله:",
+                  options: ["واحد لا شريك له", "كبير وعظيم فقط", "له أولاد", "كل ما سبق"],
+                  correctIndex: 0,
+                  explanation: "الله جل جلاله واحد أحد فرد صمد ليس له شريك ولا مثيل."
+                }
+              ]
+            }
+          },
+          {
+            id: "ls-102",
+            title: "سورة الفلق والناس مع الشرح المصور",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعتان كاملتان",
+            attachments: [
+              { name: "ورقة أنشطة التلوين والترديد (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "2.1 MB", type: "pdf" }
+            ],
+            quiz: null
+          }
         ]
       },
       {
         title: "الفصل الثاني: مخارج الحروف الأساسية",
         lessons: [
-          { title: "مخارج حروف الحلق والشفتين", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "14 دقيقة" },
-          { title: "اختبار التلاوة التفاعلي والتقييم الفردي", videoUrl: "", duration: "20 دقيقة" }
+          {
+            id: "ls-103",
+            title: "مخارج حروف الحلق والشفتين",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعة و 45 دقيقة",
+            attachments: [
+              { name: "رسم توضيحي لمخارج الحروف (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "3.2 MB", type: "pdf" }
+            ],
+            quiz: {
+              title: "كويز مخارج الحروف للأطفال",
+              passingScore: 60,
+              questions: [
+                {
+                  question: "أي من الحروف التالية يخرج من الشفتين؟",
+                  options: ["حرف الباء (ب)", "حرف الخاء (خ)", "حرف الهمزة (ء)", "حرف العين (ع)"],
+                  correctIndex: 0,
+                  explanation: "حرف الباء يخرج بانطباق الشفتين."
+                }
+              ]
+            }
+          }
         ]
       }
     ]
@@ -61,10 +115,10 @@ const AtharCoursesData = [
             <path d="M8 8h1"></path>
             <path d="M16 8h-1"></path>
           </svg>`,
-    description: "منهج تفاعلي متكامل مستوحى من أحدث طرق تعليم القراءة العربية (نور البيان والقرائية الحديثة)، يربط بين شكل الحرف وصوته وحركاته عبر أناشيد وقصص مرئية وتدريبات حركية.",
+    description: "منهج تفاعلي متكامل مستوحى من أحدث طرق تعليم القراءة العربية، يربط بين شكل الحرف وصوته وحركاته عبر أناشيد وقصص مرئية وتدريبات حركية.",
     objectives: [
       "التمييز البصري والسمعي لكافة الحروف الهجائية",
-      "نطق الحركات القصيرة (الفتح والكسر والضم) والسكون",
+      "نطق الحركات القصيرة والسكون",
       "تركيب الكلمات البسيطة وقراءتها بثقة",
       "تطوير مسكة القلم والتهيئة للكتابة السليمة"
     ],
@@ -75,15 +129,27 @@ const AtharCoursesData = [
       {
         title: "الفصل الأول: الحروف الهجائية وأصواتها",
         lessons: [
-          { title: "رحلة الحروف من (أ) إلى (خ) بالأشكال", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "15 دقيقة" },
-          { title: "تمارين نطق مخارج الحروف", videoUrl: "", duration: "10 دقائق" }
-        ]
-      },
-      {
-        title: "الفصل الثاني: الحركات القصيرة والسكون",
-        lessons: [
-          { title: "رحلة الفتحة والكسرة والضمة", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "18 دقيقة" },
-          { title: "تجميع أول كلمة وقراءتها بطلاقة", videoUrl: "", duration: "15 دقيقة" }
+          {
+            id: "ls-201",
+            title: "رحلة الحروف من (أ) إلى (خ) بالأشكال",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعة ونصف",
+            attachments: [
+              { name: "دفتر تتبع الحروف ونقاط الكتابة (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "4.5 MB", type: "pdf" }
+            ],
+            quiz: {
+              title: "كويز تمييز الحروف الهجائية",
+              passingScore: 70,
+              questions: [
+                {
+                  question: "ما هو الحرف الذي توجد فوقه ثلاث نقاط؟",
+                  options: ["حرف الباء (ب)", "حرف التاء (ت)", "حرف الثاء (ث)", "حرف الجيم (ج)"],
+                  correctIndex: 2,
+                  explanation: "حرف الثاء يتميز بثلاث نقاط فوقه."
+                }
+              ]
+            }
+          }
         ]
       }
     ]
@@ -106,12 +172,12 @@ const AtharCoursesData = [
             <rect width="8" height="8" x="8" y="13" rx="2"></rect>
             <path d="M12 17h.01"></path>
           </svg>`,
-    description: "بناء ثقة الطفل في التحدث بالإنجليزية عبر منهج الـ Phonics المعاصر، وممارسة المحادثات اليومية السهلة (التحية، المشاعر، الألوان، وأسماء الأشياء).",
+    description: "بناء ثقة الطفل في التحدث بالإنجليزية عبر منهج الـ Phonics المعاصر وممارسة المحادثات اليومية السهلة.",
     objectives: [
-      "Jolly Phonics: التعرف على أصوات الحروف (Letter Sounds)",
-      "نطق الكلمات الإنجليزية الأساسية بلكنة سليمة",
-      "اكتساب حصيلة لغوية تزيد عن 200 كلمة تفاعلية",
-      "التحدث بجمل بسيطة والتفاعل مع المعلم بالإنجليزية"
+      "Jolly Phonics: التعرف على أصوات الحروف",
+      "نطق الكلمات الإنجليزية بلكنة سليمة",
+      "اكتساب حصيلة لغوية تفاعلية",
+      "التحدث بجمل بسيطة بثقة"
     ],
     lessonsCount: 28,
     level: "مبتدئ وتأسيسي",
@@ -120,8 +186,27 @@ const AtharCoursesData = [
       {
         title: "Unit 1: Letter Sounds (S, A, T, P, I, N)",
         lessons: [
-          { title: "Sound Stories & Visual Vocabulary", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "12 دقيقة" },
-          { title: "Blending First English Words", videoUrl: "", duration: "15 دقيقة" }
+          {
+            id: "ls-301",
+            title: "Sound Stories & Visual Vocabulary",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعة و 10 دقائق",
+            attachments: [
+              { name: "Phonics Activity Flashcards (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "3.1 MB", type: "pdf" }
+            ],
+            quiz: {
+              title: "Phonics Letters Assessment",
+              passingScore: 70,
+              questions: [
+                {
+                  question: "Which letter makes the /s/ sound as in Sun?",
+                  options: ["Letter T", "Letter S", "Letter P", "Letter A"],
+                  correctIndex: 1,
+                  explanation: "The letter S represents the /s/ sound."
+                }
+              ]
+            }
+          }
         ]
       }
     ]
@@ -148,7 +233,7 @@ const AtharCoursesData = [
             <path d="M12 18h.01"></path>
             <path d="M8 18h.01"></path>
           </svg>`,
-    description: "تحويل الحساب والرياضيات إلى تجربة محببة عبر استخدام النماذج والرسومات لتعليم العد، المقارنة، والجمع والطرح المبسط وتنمية التفكير المنطقي.",
+    description: "تحويل الحساب والرياضيات إلى تجربة محببة عبر استخدام النماذج والرسومات لتعليم العد والمقارنة والجمع والطرح.",
     objectives: [
       "إتقان الأرقام والعد التنازلي والتصاعدي",
       "مفاهيم الكميات والأحجام والأشكال الهندسية",
@@ -162,8 +247,27 @@ const AtharCoursesData = [
       {
         title: "الوحدة الأولى: الأرقام من 1 إلى 10",
         lessons: [
-          { title: "العد بالأصابع والنماذج البصرية", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", duration: "14 دقيقة" },
-          { title: "المقارنة: أكبر وأصغر بالأشكال", videoUrl: "", duration: "12 دقيقة" }
+          {
+            id: "ls-401",
+            title: "العد بالأصابع والنماذج البصرية",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            duration: "ساعة كاملة",
+            attachments: [
+              { name: "أوراق عمل تمارين الأرقام وتطابق الأشكال (PDF)", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", size: "2.8 MB", type: "pdf" }
+            ],
+            quiz: {
+              title: "كويز العد والأرقام الذكية",
+              passingScore: 60,
+              questions: [
+                {
+                  question: "ما هو الرقم الذي يأتي مباشرة بعد الرقم 4؟",
+                  options: ["3", "5", "6", "2"],
+                  correctIndex: 1,
+                  explanation: "العدد التالي للرقم 4 هو الرقم 5."
+                }
+              ]
+            }
+          }
         ]
       }
     ]

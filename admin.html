@@ -675,17 +675,17 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: ADD LESSON WITH VIDEO ================= -->
+  <!-- ================= MODAL: ADD LESSON WITH VIDEO, PDF & QUIZ ================= -->
   <div id="addLessonModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-[#EBE3D5]">
+    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-[#EBE3D5] max-h-[90vh] overflow-y-auto">
       
       <button onclick="closeModal('addLessonModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
 
       <div class="mb-5">
-        <h3 class="text-xl font-bold text-[#332B25] font-heading">إضافة درس وفيديو جديد</h3>
-        <p class="text-xs text-[#6B625B]">تحديد عنوان الدرس وإرفاق رابط الفيديو أو ملف الفيديو</p>
+        <h3 class="text-xl font-bold text-[#332B25] font-heading">إضافة درس، فيديو، ملفات وكويز</h3>
+        <p class="text-xs text-[#6B625B]">فيديوهات كاملة بدون حد زمني، مذكرات PDF مرفقة، واختبارات تفاعلية</p>
       </div>
 
       <form onsubmit="saveNewLessonWithVideo(event)" class="space-y-4">
@@ -694,8 +694,14 @@
           <input type="text" id="newLessonTitle" required placeholder="مثال: الدرس الثاني: رحلة الحروف مع الحركات" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
         </div>
 
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">المدة الزمنية للدرس (مفتوحة بدون أي حد للوقت)</label>
+          <input type="text" id="newLessonDuration" value="ساعة و 30 دقيقة" placeholder="مثال: ساعة كاملة، ساعتان، 45 دقيقة..." class="w-full px-4 py-2 text-xs rounded-xl border border-[#E0D6C8]">
+        </div>
+
+        <!-- Video Source Section -->
         <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] space-y-3">
-          <label class="block text-xs font-bold text-[#332B25]">فيديو الدرس:</label>
+          <label class="block text-xs font-bold text-[#332B25]">فيديو الدرس (بدون حد للوقت):</label>
           
           <div>
             <label class="block text-[11px] text-gray-500 mb-1">رابط الفيديو (YouTube، Vimeo، أو رابط MP4 مباشر):</label>
@@ -715,14 +721,88 @@
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-[#4A423B] mb-1">المدة الزمنية التقديرية للدرس</label>
-          <input type="text" id="newLessonDuration" value="15 دقيقة" class="w-full px-4 py-2 text-xs rounded-xl border border-[#E0D6C8]">
+        <!-- File / PDF Attachments Section -->
+        <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] space-y-3">
+          <label class="block text-xs font-bold text-[#332B25]">مرفقات وملفات الدرس (PDF / أوراق عمل):</label>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">اسم الملف أو المذكرة:</label>
+              <input type="text" id="newLessonAttachmentName" placeholder="مثال: مذكرة شرح الدرس (PDF)" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">رابط تحميل خارجي (اختياري):</label>
+              <input type="url" id="newLessonAttachmentUrl" placeholder="https://.../sheet.pdf" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white" dir="ltr">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] text-gray-500 mb-1">أو رفع ملف من جهازك مباشرة:</label>
+            <input type="file" id="newLessonAttachmentFile" accept=".pdf,.doc,.docx" onchange="handleLessonAttachmentUpload(event)" class="w-full text-xs text-gray-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#8C6239] file:text-white cursor-pointer">
+            <span id="attachmentFileName" class="hidden text-[11px] font-bold text-emerald-700 mt-1 block"></span>
+          </div>
+        </div>
+
+        <!-- Quiz Builder Section -->
+        <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-[#332B25] flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="enableQuizToggle" class="rounded text-[#8C6239] focus:ring-[#8C6239]" onchange="document.getElementById('quizFieldsContainer').classList.toggle('hidden', !this.checked)">
+              <span>إرفاق كويز واختبار تفاعلي لهذا الدرس</span>
+            </label>
+          </div>
+
+          <div id="quizFieldsContainer" class="hidden space-y-3 pt-2 border-t border-gray-200">
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">عنوان الكويز:</label>
+              <input type="text" id="quizTitleInput" value="كويز قياس الاستيعاب والفهم" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white">
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">نص السؤال:</label>
+              <input type="text" id="quizQuestionText" placeholder="مثال: كم عدد الحروف الهجائية باللغة العربية؟" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white">
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[10px] text-gray-400">الخيار الأول (أ):</label>
+                <input type="text" id="quizOpt0" placeholder="الخيار الأول" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E0D6C8] bg-white">
+              </div>
+              <div>
+                <label class="block text-[10px] text-gray-400">الخيار الثاني (ب):</label>
+                <input type="text" id="quizOpt1" placeholder="الخيار الثاني" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E0D6C8] bg-white">
+              </div>
+              <div>
+                <label class="block text-[10px] text-gray-400">الخيار الثالث (ج):</label>
+                <input type="text" id="quizOpt2" placeholder="الخيار الثالث" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E0D6C8] bg-white">
+              </div>
+              <div>
+                <label class="block text-[10px] text-gray-400">الخيار الرابع (د):</label>
+                <input type="text" id="quizOpt3" placeholder="الخيار الرابع" class="w-full px-2.5 py-1.5 text-xs rounded-lg border border-[#E0D6C8] bg-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] text-gray-500 mb-1">الإجابة الصحيحة:</label>
+                <select id="quizCorrectOpt" class="w-full px-2.5 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white font-bold text-[#8C6239]">
+                  <option value="0">الخيار الأول (أ)</option>
+                  <option value="1">الخيار الثاني (ب)</option>
+                  <option value="2">الخيار الثالث (ج)</option>
+                  <option value="3">الخيار الرابع (د)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-gray-500 mb-1">توضيح الإجابة (Explanation):</label>
+                <input type="text" id="quizExplanation" placeholder="توضيح يظهر للطالب عند الحل" class="w-full px-2.5 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white">
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="pt-3 flex gap-3">
           <button type="submit" class="btn-athar-primary py-2.5 px-6 text-sm font-bold flex-1">
-            حفظ الدرس والفيديو
+            حفظ الدرس والمحتوى الكامل
           </button>
           <button type="button" onclick="closeModal('addLessonModal')" class="btn-athar-outline py-2.5 px-4 text-sm font-bold">
             إلغاء
@@ -731,6 +811,11 @@
       </form>
 
     </div>
+  </div>
+
+  <!-- ================= MODAL: QUIZ RUNNER ================= -->
+  <div id="quizRunnerModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div id="quizRunnerModalContent" class="w-full flex justify-center"></div>
   </div>
 
   <!-- ================= MODAL: VIDEO PLAYER ================= -->
