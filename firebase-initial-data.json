@@ -1,0 +1,231 @@
+{
+  "platform_settings": {
+    "academy_name": "أكاديمية أثر | ATHAR ACADEMY",
+    "tagline": "كل بداية صغيرة تصنع أثراً كبيراً",
+    "support_whatsapp": "+966500000000",
+    "currency": "SAR",
+    "academic_year": "2026"
+  },
+  "stats": {
+    "total_students": 1284,
+    "active_courses": 4,
+    "monthly_revenue": "34,850 ر.س",
+    "completion_rate": "88%"
+  },
+  "courses": {
+    "course-1": {
+      "id": "course-1",
+      "title": "تأسيس القرآن الكريم وتجويده",
+      "track": "القرآن الكريم",
+      "age_group": "3 - 7 سنوات",
+      "instructor": "أ. فاطمة الزهراء",
+      "price": "180 ر.س",
+      "status": "active",
+      "students_count": 420,
+      "description": "برنامج تأسيسي للأطفال يبدأ بقصار السور من جزء عم مع تصحيح مخارج الحروف والترديد التفاعلي.",
+      "chapters": {
+        "ch-1": {
+          "title": "الفصل الأول: آداب الاستماع وقصار السور",
+          "lessons": [
+            "سورة الفاتحة والإخلاص بالتجويد الميسر",
+            "سورة الفلق والناس",
+            "أنشطة الترديد الصوتي"
+          ]
+        },
+        "ch-2": {
+          "title": "الفصل الثاني: مخارج الحروف الأساسية",
+          "lessons": [
+            "حروف الحلق",
+            "حروف اللسان والشفتين",
+            "اختبار التلاوة التفاعلي"
+          ]
+        }
+      }
+    },
+    "course-2": {
+      "id": "course-2",
+      "title": "تأسيس القراءة والكتابة العربية",
+      "track": "تأسيس عربي",
+      "age_group": "3 - 7 سنوات",
+      "instructor": "أ. عبد الله الشريف",
+      "price": "190 ر.س",
+      "status": "active",
+      "students_count": 380,
+      "description": "منهج تفاعلي يربط بين شكل الحرف وصوته وحركاته عبر القصص المرئية والتدريبات السليمة.",
+      "chapters": {
+        "ch-1": {
+          "title": "الفصل الأول: الحروف الهجائية بالترتيب",
+          "lessons": [
+            "أ إلى ث بالأنشطة",
+            "ج إلى خ بالرسوم",
+            "لعبة مطابقة الحروف"
+          ]
+        },
+        "ch-2": {
+          "title": "الفصل الثاني: الحركات القصيرة والسكون",
+          "lessons": [
+            "رحلة الفتحة",
+            "رحلة الكسرة والضمة",
+            "قراءة الكلمات البسيطة"
+          ]
+        }
+      }
+    },
+    "course-3": {
+      "id": "course-3",
+      "title": "English Phonics & Early Vocabulary",
+      "track": "تأسيس إنجليزي",
+      "age_group": "3 - 7 سنوات",
+      "instructor": "Miss Sarah Adams",
+      "price": "210 ر.س",
+      "status": "active",
+      "students_count": 295,
+      "description": "بناء ثقة الطفل في التحدث بالإنجليزية عبر منهج Jolly Phonics وممارسة المحادثات السهلة.",
+      "chapters": {
+        "ch-1": {
+          "title": "Unit 1: Letter Sounds",
+          "lessons": [
+            "Sound Stories and Audios",
+            "Blending First Words",
+            "Phonics Interactive Game"
+          ]
+        },
+        "ch-2": {
+          "title": "Unit 2: Daily Greetings & Colors",
+          "lessons": [
+            "Hello & Goodbye",
+            "Rainbow Colors",
+            "Action Verbs"
+          ]
+        }
+      }
+    },
+    "course-4": {
+      "id": "course-4",
+      "title": "تأسيس الحساب والأشكال الذكية",
+      "track": "تأسيس حساب",
+      "age_group": "3 - 7 سنوات",
+      "instructor": "أ. مريم الدوسري",
+      "price": "160 ر.س",
+      "status": "active",
+      "students_count": 189,
+      "description": "تعليم العد، المقارنة، الجمع والطرح المبسط وتنمية التفكير المنطقي بالأشكال.",
+      "chapters": {
+        "ch-1": {
+          "title": "الوحدة الأولى: الأرقام من 1 إلى 10",
+          "lessons": [
+            "العد بالأصابع والنماذج",
+            "المقارنة: أكبر وأصغر",
+            "الأشكال الهندسية الأساسية"
+          ]
+        },
+        "ch-2": {
+          "title": "الوحدة الثانية: مبادئ الجمع البسيط",
+          "lessons": [
+            "تمارين الجمع المصور",
+            "حل المسائل البسيطة"
+          ]
+        }
+      }
+    }
+  },
+  "students": {
+    "std-101": {
+      "id": "std-101",
+      "name": "عمر أحمد عبد الرحمن",
+      "parent_phone": "+966501234567",
+      "age": "5 سنوات",
+      "enrolled_courses": [
+        "تأسيس عربي",
+        "القرآن الكريم"
+      ],
+      "join_date": "2026-10-15",
+      "status": "active",
+      "progress": 75
+    },
+    "std-102": {
+      "id": "std-102",
+      "name": "سارة محمد العتيبي",
+      "parent_phone": "+966559876543",
+      "age": "6 سنوات",
+      "enrolled_courses": [
+        "English Phonics",
+        "تأسيس حساب"
+      ],
+      "join_date": "2026-10-18",
+      "status": "active",
+      "progress": 90
+    },
+    "std-103": {
+      "id": "std-103",
+      "name": "يوسف خالد الغامدي",
+      "parent_phone": "+966542223344",
+      "age": "4 سنوات",
+      "enrolled_courses": [
+        "القرآن الكريم"
+      ],
+      "join_date": "2026-10-22",
+      "status": "blocked",
+      "progress": 20
+    },
+    "std-104": {
+      "id": "std-104",
+      "name": "ريما فهد السديري",
+      "parent_phone": "+966564448899",
+      "age": "7 سنوات",
+      "enrolled_courses": [
+        "تأسيس عربي",
+        "English Phonics",
+        "تأسيس حساب"
+      ],
+      "join_date": "2026-10-25",
+      "status": "active",
+      "progress": 60
+    }
+  },
+  "activation_codes": {
+    "code-1": {
+      "code": "ATHAR-QURAN-9842",
+      "track": "القرآن الكريم",
+      "created_date": "2026-10-20",
+      "expiry_date": "2026-12-31",
+      "is_used": false,
+      "used_by": "-"
+    },
+    "code-2": {
+      "code": "ATHAR-ARABIC-1102",
+      "track": "تأسيس عربي",
+      "created_date": "2026-10-21",
+      "expiry_date": "2026-12-31",
+      "is_used": true,
+      "used_by": "عمر أحمد عبد الرحمن"
+    },
+    "code-3": {
+      "code": "ATHAR-ENGL-5521",
+      "track": "تأسيس إنجليزي",
+      "created_date": "2026-10-22",
+      "expiry_date": "2026-12-31",
+      "is_used": false,
+      "used_by": "-"
+    },
+    "code-4": {
+      "code": "ATHAR-MATH-4439",
+      "track": "تأسيس حساب",
+      "created_date": "2026-10-24",
+      "expiry_date": "2026-12-31",
+      "is_used": false,
+      "used_by": "-"
+    }
+  },
+  "trial_bookings": {
+    "booking-demo-1": {
+      "id": "booking-demo-1",
+      "parent_name": "سعد ناصر المالكي",
+      "parent_phone": "+966509988776",
+      "child_age": "5 سنوات",
+      "course_track": "تأسيس لغة عربية وقراءة",
+      "status": "confirmed",
+      "date": "2026-10-27"
+    }
+  }
+}
