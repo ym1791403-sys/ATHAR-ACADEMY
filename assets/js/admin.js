@@ -132,6 +132,10 @@ const AdminStore = {
   },
   set(key, val) {
     localStorage.setItem(`athar_admin_${key}`, JSON.stringify(val));
+    if (window.FirebaseService) {
+      if (key === 'students') window.FirebaseService.syncStudents(val);
+      if (key === 'activationCodes') window.FirebaseService.syncActivationCodes(val);
+    }
   },
   init() {
     ['stats', 'notifications', 'courses', 'students', 'activationCodes'].forEach(key => {

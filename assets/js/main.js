@@ -370,15 +370,21 @@ function initBookingForm() {
 
     // Save to LocalStorage
     const existingBookings = JSON.parse(localStorage.getItem('athar_trial_bookings') || '[]');
-    existingBookings.unshift({
+    const newBooking = {
       id: `book-${Date.now()}`,
       parentName,
       childAge,
       courseTrack,
       parentPhone,
       date: new Date().toISOString().split('T')[0]
-    });
+    };
+    existingBookings.unshift(newBooking);
     localStorage.setItem('athar_trial_bookings', JSON.stringify(existingBookings));
+
+    // Live Firebase Database Write with Open Rules
+    if (window.FirebaseService) {
+      window.FirebaseService.saveTrialBooking(newBooking);
+    }
 
     const successBox = document.getElementById('bookingSuccessState');
     if (successBox) {
