@@ -86,6 +86,19 @@ const FirebaseService = {
     return saved;
   },
 
+  // Sync Courses List to Firebase
+  async syncCourses(coursesList) {
+    if (this.rtdb) {
+      try {
+        await this.rtdb.ref('courses').set(coursesList);
+        return true;
+      } catch (e) {
+        console.warn("RTDB sync courses:", e);
+      }
+    }
+    return false;
+  },
+
   // Sync Students List to Firebase
   async syncStudents(studentsList) {
     if (this.rtdb) {

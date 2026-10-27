@@ -1,13 +1,13 @@
 /**
- * ATHAR ACADEMY - Admin Dashboard Controller (Clean & Functional)
- * Full State Management, Zero Emojis, Complete Action Handlers, CSV/JSON Exports
+ * ATHAR ACADEMY - Admin Dashboard Controller (Advanced Course, Video & Media Management)
+ * Clean, Zero Emojis, Live Media & Video Attachments
  */
 
 // Initial Seed Data
 const DefaultInitialData = {
   stats: {
     totalStudents: 1284,
-    activeCourses: 8,
+    activeCourses: 4,
     monthlyRevenue: "34,850 ر.س",
     completionRate: "88%"
   },
@@ -16,64 +16,7 @@ const DefaultInitialData = {
     { id: 2, text: "حجز حصة تقييم مجانية جديدة لمرحلة التأسيس", time: "منذ ساعتين", unread: true },
     { id: 3, text: "تفعيل كود اشتراك بنجاح: ATHAR-ARABIC-1102", time: "منذ 4 ساعات", unread: false }
   ],
-  courses: [
-    {
-      id: "course-1",
-      title: "تأسيس القرآن الكريم وتجويده",
-      track: "القرآن الكريم",
-      ageGroup: "3 - 7 سنوات",
-      instructor: "أ. فاطمة الزهراء",
-      studentsCount: 420,
-      status: "active",
-      price: "180 ر.س",
-      chapters: [
-        { title: "الفصل الأول: آداب الاستماع وقصار السور", lessons: ["سورة الفاتحة والإخلاص", "سورة الفلق والناس", "أنشطة الترديد الصوتي"] },
-        { title: "الفصل الثاني: مخارج الحروف الأساسية", lessons: ["حروف الحلق", "حروف اللسان والشفتين", "اختبار التلاوة التفاعلي"] }
-      ]
-    },
-    {
-      id: "course-2",
-      title: "تأسيس القراءة والكتابة العربية",
-      track: "تأسيس عربي",
-      ageGroup: "3 - 7 سنوات",
-      instructor: "أ. عبد الله الشريف",
-      studentsCount: 380,
-      status: "active",
-      price: "190 ر.س",
-      chapters: [
-        { title: "الفصل الأول: الحروف الهجائية بالترتيب", lessons: ["أ إلى ث بالأنشطة", "ج إلى خ بالرسوم", "لعبة مطابقة الحروف"] },
-        { title: "الفصل الثاني: الحركات القصيرة والسكون", lessons: ["رحلة الفتحة", "رحلة الكسرة والضمة", "قراءة الكلمات البسيطة"] }
-      ]
-    },
-    {
-      id: "course-3",
-      title: "English Phonics & Early Vocabulary",
-      track: "تأسيس إنجليزي",
-      ageGroup: "3 - 7 سنوات",
-      instructor: "Miss Sarah Adams",
-      studentsCount: 295,
-      status: "active",
-      price: "210 ر.س",
-      chapters: [
-        { title: "Unit 1: Letter Sounds (S, A, T, P, I, N)", lessons: ["Sound Stories & Audio", "Blending First Words", "Phonics Game"] },
-        { title: "Unit 2: Daily Greetings & Colors", lessons: ["Hello & Goodbye", "Rainbow Colors", "Action Verbs"] }
-      ]
-    },
-    {
-      id: "course-4",
-      title: "تأسيس الحساب والأشكال الذكية",
-      track: "تأسيس حساب",
-      ageGroup: "3 - 7 سنوات",
-      instructor: "أ. مريم الدوسري",
-      studentsCount: 189,
-      status: "active",
-      price: "160 ر.س",
-      chapters: [
-        { title: "الوحدة الأولى: الأرقام من 1 إلى 10", lessons: ["العد بالأصابع والنماذج", "المقارنة: أكبر وأصغر", "الأشكال الهندسية الأساسية"] },
-        { title: "الوحدة الثانية: مبادئ الجمع البسيط", lessons: ["تمارين الجمع المصور", "حل المسائل البسيطة"] }
-      ]
-    }
-  ],
+  courses: typeof AtharCoursesData !== 'undefined' ? AtharCoursesData : [],
   students: [
     {
       id: "std-101",
@@ -124,29 +67,33 @@ const DefaultInitialData = {
   ]
 };
 
-// Store Controller
+// Store Controller with Auto LocalStorage & Firebase Sync
 const AdminStore = {
   get(key) {
     const raw = localStorage.getItem(`athar_admin_${key}`);
-    return raw ? JSON.parse(raw) : DefaultInitialData[key];
+    if (raw) return JSON.parse(raw);
+    if (key === 'courses' && typeof AtharCoursesData !== 'undefined') {
+      return AtharCoursesData;
+    }
+    return DefaultInitialData[key];
   },
   set(key, val) {
     localStorage.setItem(`athar_admin_${key}`, JSON.stringify(val));
     if (window.FirebaseService) {
-      if (key === 'students') window.FirebaseService.syncStudents(val);
-      if (key === 'activationCodes') window.FirebaseService.syncActivationCodes(val);
+      if (key === 'courses') window.FirebaseService.syncCourses && window.FirebaseService.syncCourses(val);
+      if (key === 'students') window.FirebaseService.syncStudents && window.FirebaseService.syncStudents(val);
+      if (key === 'activationCodes') window.FirebaseService.syncActivationCodes && window.FirebaseService.syncActivationCodes(val);
     }
   },
   init() {
     ['stats', 'notifications', 'courses', 'students', 'activationCodes'].forEach(key => {
       if (!localStorage.getItem(`athar_admin_${key}`)) {
-        this.set(key, DefaultInitialData[key]);
+        this.set(key, this.get(key));
       }
     });
   }
 };
 
-// Initialization
 document.addEventListener('DOMContentLoaded', () => {
   AdminStore.init();
   initNavigation();
@@ -156,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderActivationCodes();
   initSettingsForm();
   renderNotifications();
+  initCoverImagePreview();
 });
 
 // Toast System (Pure SVG, Zero Emojis)
@@ -174,14 +122,13 @@ function showToast(message, type = 'success') {
 
   container.appendChild(toast);
   setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-
   setTimeout(() => {
     toast.classList.add('opacity-0', '-translate-y-2');
     setTimeout(() => toast.remove(), 300);
   }, 3000);
 }
 
-// Navigation View Switcher
+// Navigation
 function initNavigation() {
   const navItems = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('.admin-section');
@@ -224,7 +171,7 @@ function initNavigation() {
   };
 }
 
-// Notifications Dropdown Handler
+// Notifications
 window.toggleNotifications = function() {
   const dropdown = document.getElementById('notificationsDropdown');
   if (dropdown) dropdown.classList.toggle('hidden');
@@ -273,14 +220,14 @@ window.clearNotifications = function() {
   showToast("تم مسح سجل الإشعارات");
 };
 
-// 1. Overview Rendering
+// Overview
 function renderOverview() {
   const stats = AdminStore.get('stats');
   const courses = AdminStore.get('courses');
   const students = AdminStore.get('students');
 
   document.getElementById('statTotalStudents').textContent = students.length || stats.totalStudents;
-  document.getElementById('statActiveCourses').textContent = courses.filter(c => c.status === 'active').length;
+  document.getElementById('statActiveCourses').textContent = courses.filter(c => c.status === 'active' || !c.status).length;
   document.getElementById('statRevenue').textContent = stats.monthlyRevenue;
   document.getElementById('statCompletionRate').textContent = stats.completionRate;
 
@@ -306,53 +253,124 @@ function renderOverview() {
   }
 }
 
-// 2. Courses Management
+// -------------------------------------------------------------
+// Courses Management with Cover Image, Video & Price Support
+// -------------------------------------------------------------
+let uploadedCoverBase64 = null;
+
+function initCoverImagePreview() {
+  const fileInput = document.getElementById('newCourseCoverFile');
+  const urlInput = document.getElementById('newCourseCoverUrl');
+  const previewImg = document.getElementById('courseCoverPreview');
+  const previewBox = document.getElementById('courseCoverPreviewBox');
+
+  if (fileInput) {
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          uploadedCoverBase64 = evt.target.result;
+          if (previewImg && previewBox) {
+            previewImg.src = uploadedCoverBase64;
+            previewBox.classList.remove('hidden');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  if (urlInput) {
+    urlInput.addEventListener('input', function(e) {
+      const val = e.target.value.trim();
+      if (val && previewImg && previewBox) {
+        uploadedCoverBase64 = val;
+        previewImg.src = val;
+        previewBox.classList.remove('hidden');
+      }
+    });
+  }
+}
+
 function renderCourses() {
   const courses = AdminStore.get('courses');
   const container = document.getElementById('coursesListContainer');
   if (!container) return;
 
   container.innerHTML = courses.map((course) => {
-    const totalLessons = course.chapters ? course.chapters.reduce((sum, ch) => sum + (ch.lessons ? ch.lessons.length : 0), 0) : 0;
-    const totalChapters = course.chapters ? course.chapters.length : 0;
+    let totalLessons = 0;
+    let totalChapters = 0;
+    if (course.chapters) {
+      totalChapters = course.chapters.length;
+      course.chapters.forEach(ch => {
+        totalLessons += ch.lessons ? ch.lessons.length : 0;
+      });
+    }
+
+    const cover = course.coverImage || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80";
+    const status = course.status || "active";
 
     return `
-      <div class="bg-white rounded-2xl p-6 border border-[#EBE3D5] shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#F4ECE1] text-[#8C6239]">${course.track}</span>
-            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${course.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600'}">
-              ${course.status === 'active' ? 'متاح' : 'معطل'}
+      <div class="bg-white rounded-3xl border border-[#EBE3D5] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+        
+        <!-- Course Cover Image Display -->
+        <div class="relative h-44 w-full bg-[#FAF7F2] overflow-hidden">
+          <img src="${cover}" alt="${course.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          
+          <div class="absolute top-3 right-3 flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-white/95 text-[#8C6239] shadow-sm backdrop-blur-sm">
+              ${course.track || 'مسار عام'}
             </span>
           </div>
 
-          <h3 class="text-base sm:text-lg font-bold text-[#332B25] mb-1 font-heading">${course.title}</h3>
-          <p class="text-xs text-[#6B625B] mb-4">المعلم: ${course.instructor} • الفئة: ${course.ageGroup}</p>
+          <div class="absolute top-3 left-3">
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${status === 'active' ? 'bg-emerald-500 text-white' : 'bg-gray-500 text-white'} shadow-sm">
+              ${status === 'active' ? 'متاح' : 'معطل'}
+            </span>
+          </div>
 
-          <div class="grid grid-cols-2 gap-2 py-3 border-y border-[#F4ECE1] text-xs text-[#5E544B] mb-4">
-            <div>الفصول: <strong class="text-[#332B25]">${totalChapters}</strong></div>
-            <div>الدروس: <strong class="text-[#332B25]">${totalLessons}</strong></div>
-            <div>الطلاب: <strong class="text-[#332B25]">${course.studentsCount}</strong></div>
-            <div>السعر: <strong class="text-[#8C6239]">${course.price}</strong></div>
+          <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between text-white">
+            <span class="text-xs font-semibold opacity-90">${course.instructor || 'أكاديمية أثر'}</span>
+            <span class="text-sm font-extrabold bg-[#8C6239] px-2.5 py-0.5 rounded-lg">${course.price || 'مجاني'}</span>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 pt-2">
-          <button onclick="openManageChaptersModal('${course.id}')" class="btn-athar-primary py-2 px-3 text-xs font-bold flex-1 text-center">
-            إدارة الفصول والدروس
-          </button>
-          <button onclick="toggleCourseStatus('${course.id}')" class="btn-athar-outline py-2 px-3 text-xs font-bold" title="تغيير الحالة">
-            ${course.status === 'active' ? 'تعطيل' : 'تفعيل'}
-          </button>
-          <button onclick="deleteCourse('${course.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors" title="حذف الدورة">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-          </button>
+        <!-- Body Details -->
+        <div class="p-5 flex-grow flex flex-col justify-between">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-[#332B25] mb-1.5 font-heading leading-snug">${course.title}</h3>
+            <p class="text-xs text-[#6B625B] line-clamp-2 mb-4 leading-relaxed">${course.description || course.tagline || 'منهج تأسيسي متكامل للأطفال.'}</p>
+
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#FAF7F2] rounded-xl text-xs text-[#5E544B] mb-4 text-center border border-[#EBE3D5]">
+              <div><span class="block text-[10px] text-gray-400">الفصول</span><strong class="text-[#332B25] font-bold">${totalChapters}</strong></div>
+              <div><span class="block text-[10px] text-gray-400">الدروس</span><strong class="text-[#332B25] font-bold">${totalLessons}</strong></div>
+              <div><span class="block text-[10px] text-gray-400">الفئة</span><strong class="text-[#8C6239] font-bold text-[11px]">${course.ageGroup || '3-7 سنوات'}</strong></div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-2 pt-2 border-t border-[#F4ECE1]">
+            <button onclick="openManageChaptersModal('${course.id}')" class="btn-athar-primary py-2 px-3 text-xs font-bold flex-1 text-center flex items-center justify-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>إدارة الفصول والفيديوهات</span>
+            </button>
+            <button onclick="toggleCourseStatus('${course.id}')" class="btn-athar-outline py-2 px-3 text-xs font-bold" title="تغيير الحالة">
+              ${status === 'active' ? 'تعطيل' : 'تفعيل'}
+            </button>
+            <button onclick="deleteCourse('${course.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors" title="حذف الدورة">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+          </div>
         </div>
+
       </div>
     `;
   }).join('');
 }
 
+// Add New Course Handler
 window.handleAddNewCourse = function(event) {
   event.preventDefault();
   const title = document.getElementById('newCourseTitle').value;
@@ -360,6 +378,10 @@ window.handleAddNewCourse = function(event) {
   const ageGroup = document.getElementById('newCourseAge').value;
   const instructor = document.getElementById('newCourseInstructor').value;
   const price = document.getElementById('newCoursePrice').value || "مجاني";
+  const description = document.getElementById('newCourseDescription').value || "منهج تأسيسي تفاعلي للأطفال.";
+  const sampleVideoUrl = document.getElementById('newCourseSampleVideo')?.value || "";
+
+  const cover = uploadedCoverBase64 || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80";
 
   const courses = AdminStore.get('courses');
   const newCourse = {
@@ -369,10 +391,19 @@ window.handleAddNewCourse = function(event) {
     ageGroup,
     instructor,
     price,
+    description,
+    tagline: description,
+    coverImage: cover,
+    sampleVideoUrl,
     studentsCount: 0,
     status: "active",
     chapters: [
-      { title: "الفصل الأول: البداية التمهيدية", lessons: ["الدرس الترحيبي", "أنشطة استكشافية"] }
+      {
+        title: "الفصل الأول: البداية التمهيدية",
+        lessons: [
+          { title: "الدرس الأول: مقدمة ونشاط تفاعلي", videoUrl: sampleVideoUrl, duration: "10 دقائق" }
+        ]
+      }
     ]
   };
 
@@ -382,7 +413,10 @@ window.handleAddNewCourse = function(event) {
   renderOverview();
   closeModal('addCourseModal');
   event.target.reset();
-  showToast("تمت إضافة الدورة بنجاح");
+  uploadedCoverBase64 = null;
+  const previewBox = document.getElementById('courseCoverPreviewBox');
+  if (previewBox) previewBox.classList.add('hidden');
+  showToast("تمت إضافة الدورة وصورة الغلاف بنجاح");
 };
 
 window.toggleCourseStatus = function(courseId) {
@@ -407,10 +441,13 @@ window.deleteCourse = function(courseId) {
   showToast("تم حذف الدورة بنجاح", "error");
 };
 
-// Manage Chapters Modal
-let activeEditingCourseId = null;
+// -------------------------------------------------------------
+// Chapters & Video Lessons Management Modal
+// -------------------------------------------------------------
+let activeManagingCourseId = null;
+
 window.openManageChaptersModal = function(courseId) {
-  activeEditingCourseId = courseId;
+  activeManagingCourseId = courseId;
   const courses = AdminStore.get('courses');
   const course = courses.find(c => c.id === courseId);
   if (!course) return;
@@ -419,50 +456,76 @@ window.openManageChaptersModal = function(courseId) {
   const container = document.getElementById('chaptersModalContent');
   if (!modal || !container) return;
 
+  if (!course.chapters) course.chapters = [];
+
   container.innerHTML = `
-    <div class="relative bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full mx-4 shadow-2xl border border-[#EBE3D5] max-h-[85vh] overflow-y-auto">
+    <div class="relative bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full mx-4 shadow-2xl border border-[#EBE3D5] max-h-[88vh] overflow-y-auto">
       <button onclick="closeModal('chaptersModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
 
-      <div class="mb-6">
-        <span class="text-xs font-bold text-[#8C6239] bg-[#F4ECE1] px-3 py-1 rounded-full">${course.track}</span>
-        <h2 class="text-xl sm:text-2xl font-bold text-[#332B25] mt-2 font-heading">${course.title}</h2>
-        <p class="text-xs text-[#6B625B]">تنظيم الفصول والدروس التعليمية المرتبطة بالدورة</p>
+      <div class="flex items-center gap-4 mb-6">
+        <img src="${course.coverImage || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80'}" class="w-16 h-16 rounded-2xl object-cover border border-[#E8DEC8]">
+        <div>
+          <span class="text-xs font-bold text-[#8C6239] bg-[#F4ECE1] px-3 py-1 rounded-full">${course.track || 'مسار عام'}</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-[#332B25] mt-1 font-heading">${course.title}</h2>
+          <p class="text-xs text-[#6B625B]">إضافة الفصول، ورفع وتضمين روابط الفيديوهات لكل درس</p>
+        </div>
       </div>
 
       <div class="space-y-4 mb-6">
-        ${course.chapters.map((ch, chIdx) => `
-          <div class="border border-[#E0D6C8] rounded-2xl p-4 bg-[#FAF7F2]">
-            <div class="flex items-center justify-between mb-3">
-              <h4 class="font-bold text-[#332B25] text-xs sm:text-sm flex items-center gap-2">
-                <span class="w-6 h-6 rounded-lg bg-[#8C6239] text-white flex items-center justify-center text-xs font-bold">${chIdx + 1}</span>
-                ${ch.title}
-              </h4>
-              <button onclick="deleteChapter('${course.id}', ${chIdx})" class="text-xs text-red-500 hover:underline">
-                حذف الفصل
-              </button>
-            </div>
+        ${course.chapters.length === 0 ? `<p class="text-xs text-gray-400 text-center py-4">لا توجد فصول بعد، اضغط على زر إضافة فصل أدناه.</p>` : ''}
+        ${course.chapters.map((ch, chIdx) => {
+          const lessons = ch.lessons || [];
+          return `
+            <div class="border border-[#E0D6C8] rounded-2xl p-4 bg-[#FAF7F2]">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="font-bold text-[#332B25] text-xs sm:text-sm flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-lg bg-[#8C6239] text-white flex items-center justify-center text-xs font-bold">${chIdx + 1}</span>
+                  ${ch.title}
+                </h4>
+                <button onclick="deleteChapter('${course.id}', ${chIdx})" class="text-xs text-red-500 hover:underline">
+                  حذف الفصل
+                </button>
+              </div>
 
-            <div class="space-y-2 pr-4 border-r-2 border-[#C59A58]">
-              ${ch.lessons.map((ls, lsIdx) => `
-                <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-[#EBE3D5] text-xs">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#8C6239]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    <span class="font-semibold text-[#332B25]">${ls}</span>
-                  </div>
-                  <button onclick="deleteLesson('${course.id}', ${chIdx}, ${lsIdx})" class="text-red-400 hover:text-red-600 p-1" title="حذف الدرس">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                  </button>
-                </div>
-              `).join('')}
+              <div class="space-y-2 pr-4 border-r-2 border-[#C59A58]">
+                ${lessons.map((ls, lsIdx) => {
+                  const title = typeof ls === 'object' ? ls.title : ls;
+                  const vUrl = typeof ls === 'object' ? ls.videoUrl : '';
+                  const dur = typeof ls === 'object' ? ls.duration : '10 دقائق';
 
-              <button onclick="addLessonPrompt('${course.id}', ${chIdx})" class="mt-2 text-xs font-bold text-[#8C6239] hover:underline flex items-center gap-1">
-                + إضافة درس إلى هذا الفصل
-              </button>
+                  return `
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-[#EBE3D5] text-xs">
+                      <div class="flex items-center gap-2 flex-grow overflow-hidden">
+                        <svg class="w-4 h-4 text-[#8C6239] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span class="font-semibold text-[#332B25] truncate">${title}</span>
+                        ${vUrl ? `<span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-bold">فيديو مرفق</span>` : `<span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-md">بدون فيديو</span>`}
+                      </div>
+
+                      <div class="flex items-center gap-2 flex-shrink-0 mr-2">
+                        <span class="text-[11px] text-gray-400">${dur || ''}</span>
+                        ${vUrl ? `
+                          <button onclick="openVideoPlayerModal('${encodeURIComponent(vUrl)}', '${encodeURIComponent(title)}')" class="p-1 text-[#8C6239] hover:bg-[#F4ECE1] rounded-lg" title="مشاهدة الفيديو">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                          </button>
+                        ` : ''}
+                        <button onclick="deleteLesson('${course.id}', ${chIdx}, ${lsIdx})" class="text-red-400 hover:text-red-600 p-1" title="حذف الدرس">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+
+                <button onclick="openAddLessonModal('${course.id}', ${chIdx})" class="mt-2 text-xs font-bold text-[#8C6239] hover:underline flex items-center gap-1.5 py-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  <span>+ إضافة درس وفيديو إلى هذا الفصل</span>
+                </button>
+              </div>
             </div>
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
       </div>
 
       <div class="pt-4 border-t border-[#EBE3D5] flex gap-3">
@@ -487,9 +550,10 @@ window.addChapterPrompt = function(courseId) {
   const courses = AdminStore.get('courses');
   const course = courses.find(c => c.id === courseId);
   if (course) {
+    if (!course.chapters) course.chapters = [];
     course.chapters.push({
       title: chapterName,
-      lessons: ["الدرس الأول"]
+      lessons: []
     });
     AdminStore.set('courses', courses);
     renderCourses();
@@ -502,7 +566,7 @@ window.deleteChapter = function(courseId, chIdx) {
   if (!confirm("هل تريد حذف هذا الفصل ودروسه؟")) return;
   const courses = AdminStore.get('courses');
   const course = courses.find(c => c.id === courseId);
-  if (course) {
+  if (course && course.chapters) {
     course.chapters.splice(chIdx, 1);
     AdminStore.set('courses', courses);
     renderCourses();
@@ -511,25 +575,72 @@ window.deleteChapter = function(courseId, chIdx) {
   }
 };
 
-window.addLessonPrompt = function(courseId, chIdx) {
-  const lessonName = prompt("اكتب عنوان الدرس الجديد:");
-  if (!lessonName) return;
+// Modal for Adding a Lesson with Video Upload or Video URL
+let pendingLessonCourseId = null;
+let pendingLessonChapterIdx = null;
+let uploadedLessonVideoBase64 = null;
+
+window.openAddLessonModal = function(courseId, chIdx) {
+  pendingLessonCourseId = courseId;
+  pendingLessonChapterIdx = chIdx;
+  uploadedLessonVideoBase64 = null;
+
+  const modal = document.getElementById('addLessonModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+};
+
+window.handleLessonVideoFileUpload = function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    // If it's a small MP4/WebM, read as Data URL or use blob URL
+    uploadedLessonVideoBase64 = URL.createObjectURL(file);
+    const indicator = document.getElementById('lessonVideoFileName');
+    if (indicator) {
+      indicator.textContent = `تم اختيار الفيديو: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+      indicator.classList.remove('hidden');
+    }
+  }
+};
+
+window.saveNewLessonWithVideo = function(e) {
+  e.preventDefault();
+  const title = document.getElementById('newLessonTitle').value;
+  const urlInput = document.getElementById('newLessonVideoUrl').value.trim();
+  const duration = document.getElementById('newLessonDuration').value || "12 دقيقة";
+
+  let finalVideoUrl = uploadedLessonVideoBase64 || urlInput || "";
+
+  // Convert YouTube watch link to embed link if needed
+  if (finalVideoUrl.includes("youtube.com/watch?v=")) {
+    finalVideoUrl = finalVideoUrl.replace("watch?v=", "embed/");
+  } else if (finalVideoUrl.includes("youtu.be/")) {
+    finalVideoUrl = finalVideoUrl.replace("youtu.be/", "www.youtube.com/embed/");
+  }
 
   const courses = AdminStore.get('courses');
-  const course = courses.find(c => c.id === courseId);
-  if (course && course.chapters[chIdx]) {
-    course.chapters[chIdx].lessons.push(lessonName);
+  const course = courses.find(c => c.id === pendingLessonCourseId);
+  if (course && course.chapters && course.chapters[pendingLessonChapterIdx]) {
+    course.chapters[pendingLessonChapterIdx].lessons.push({
+      title,
+      videoUrl: finalVideoUrl,
+      duration
+    });
+
     AdminStore.set('courses', courses);
     renderCourses();
-    openManageChaptersModal(courseId);
-    showToast("تمت إضافة الدرس بنجاح");
+    closeModal('addLessonModal');
+    openManageChaptersModal(pendingLessonCourseId);
+    showToast("تمت إضافة الدرس ورابط الفيديو بنجاح");
   }
 };
 
 window.deleteLesson = function(courseId, chIdx, lsIdx) {
   const courses = AdminStore.get('courses');
   const course = courses.find(c => c.id === courseId);
-  if (course && course.chapters[chIdx]) {
+  if (course && course.chapters && course.chapters[chIdx]) {
     course.chapters[chIdx].lessons.splice(lsIdx, 1);
     AdminStore.set('courses', courses);
     renderCourses();
@@ -538,7 +649,41 @@ window.deleteLesson = function(courseId, chIdx, lsIdx) {
   }
 };
 
-// 3. Students Management
+// Video Player Modal
+window.openVideoPlayerModal = function(encUrl, encTitle) {
+  const url = decodeURIComponent(encUrl);
+  const title = decodeURIComponent(encTitle);
+
+  const modal = document.getElementById('videoPlayerModal');
+  const content = document.getElementById('videoPlayerModalContent');
+  if (!modal || !content) return;
+
+  let playerHtml = '';
+  if (url.includes('youtube.com') || url.includes('vimeo.com') || url.includes('drive.google.com')) {
+    playerHtml = `<iframe src="${url}" class="w-full h-72 sm:h-96 rounded-2xl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  } else {
+    playerHtml = `<video src="${url}" controls class="w-full max-h-96 rounded-2xl bg-black" autoplay></video>`;
+  }
+
+  content.innerHTML = `
+    <div class="relative bg-white rounded-3xl p-4 sm:p-6 max-w-2xl w-full mx-4 shadow-2xl border border-[#EBE3D5]">
+      <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#EBE3D5]">
+        <h3 class="font-bold text-sm sm:text-base text-[#332B25] truncate">${title}</h3>
+        <button onclick="closeModal('videoPlayerModal')" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-100">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      ${playerHtml}
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+};
+
+// -------------------------------------------------------------
+// Students & Codes Controllers
+// -------------------------------------------------------------
 let currentStudentFilter = 'all';
 function renderStudents(filter = currentStudentFilter, searchQuery = '') {
   currentStudentFilter = filter;
@@ -547,9 +692,7 @@ function renderStudents(filter = currentStudentFilter, searchQuery = '') {
   if (!tableBody) return;
 
   let filtered = students;
-  if (filter !== 'all') {
-    filtered = filtered.filter(s => s.status === filter);
-  }
+  if (filter !== 'all') filtered = filtered.filter(s => s.status === filter);
   if (searchQuery.trim()) {
     const q = searchQuery.toLowerCase();
     filtered = filtered.filter(s => s.name.toLowerCase().includes(q) || s.parentPhone.includes(q));
@@ -629,7 +772,6 @@ window.deleteStudent = function(stdId) {
   showToast("تم حذف الطالب بنجاح", "error");
 };
 
-// Add Student Manually Modal Form
 window.handleAddStudent = function(event) {
   event.preventDefault();
   const name = document.getElementById('newStdName').value;
@@ -673,7 +815,6 @@ window.onStudentSearch = function(e) {
   renderStudents(currentStudentFilter, e.target.value);
 };
 
-// Export Students to CSV Download
 window.exportStudentsCSV = function() {
   const students = AdminStore.get('students');
   let csvContent = "\uFEFFاسم الطالب,هاتف ولي الأمر,العمر,المسارات المسجلة,الحالة,التقدم\n";
@@ -691,7 +832,7 @@ window.exportStudentsCSV = function() {
   showToast("تم تصدير ملف بيانات الطلاب بنجاح");
 };
 
-// 4. Activation Codes Management
+// Activation Codes
 let currentCodeFilter = 'all';
 function renderActivationCodes(filter = currentCodeFilter) {
   currentCodeFilter = filter;
@@ -731,9 +872,9 @@ function renderActivationCodes(filter = currentCodeFilter) {
 window.filterCodes = function(type) {
   document.querySelectorAll('.code-filter-btn').forEach(btn => {
     if (btn.dataset.filter === type) {
-      btn.className = "code-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white";
+      btn.className = "code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white";
     } else {
-      btn.className = "code-filter-btn px-3 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]";
+      btn.className = "code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]";
     }
   });
   renderActivationCodes(type);
@@ -807,7 +948,7 @@ window.exportCodesCSV = function() {
   showToast("تم تصدير ملف الأكواد بنجاح");
 };
 
-// 5. Settings, Firebase & Full Backup Tools
+// Settings & Backup
 function initSettingsForm() {
   const config = window.FirebaseService ? window.FirebaseService.getConfig() : null;
   if (config) {
@@ -835,7 +976,6 @@ function initSettingsForm() {
   }
 }
 
-// Test Firebase Connection Simulator
 window.testFirebaseConnection = function() {
   const apiKey = document.getElementById('fbApiKey')?.value;
   const statusEl = document.getElementById('fbConnectionStatus');
@@ -854,24 +994,16 @@ window.testFirebaseConnection = function() {
       statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
           <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-          <span>تم الاتصال بنجاح. خوادم Auth & Firestore جاهزة للعمل. (زمن الاستجابة: 84ms)</span>
-        </div>
-      `;
-    } else {
-      statusEl.innerHTML = `
-        <div class="flex items-center gap-2 text-xs font-bold text-amber-800 bg-amber-50 p-2.5 rounded-xl border border-amber-200">
-          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-          <span>يرجى إدخال API Key صحيح لمشروع Firebase.</span>
+          <span>تم الاتصال بنجاح بمشروع athar-28099. خوادم Firestore & Database جاهزة.</span>
         </div>
       `;
     }
-  }, 900);
+  }, 700);
 };
 
-// Full Backup JSON Export
 window.exportFullBackupJSON = function() {
   const fullBackup = {
-    version: "1.0",
+    version: "2.0",
     date: new Date().toISOString(),
     stats: AdminStore.get('stats'),
     courses: AdminStore.get('courses'),
@@ -889,7 +1021,6 @@ window.exportFullBackupJSON = function() {
   showToast("تم تنزيل النسخة الاحتياطية الكاملة");
 };
 
-// Import Backup JSON
 window.importBackupJSON = function(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -915,7 +1046,6 @@ window.importBackupJSON = function(event) {
   reader.readAsText(file);
 };
 
-// Reset Local Data
 window.resetAdminData = function() {
   if (confirm("هل تريد استعادة البيانات الافتراضية للوحة التحكم؟")) {
     localStorage.removeItem('athar_admin_stats');

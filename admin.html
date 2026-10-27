@@ -93,7 +93,6 @@
       <!-- Navigation Menu -->
       <nav class="p-4 space-y-1.5">
         
-        <!-- 1. Overview -->
         <button onclick="switchView('overview')" data-view="overview" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-bold bg-[#8C6239] text-white shadow-md transition-all text-right">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
@@ -101,15 +100,13 @@
           <span>نظرة عامة (Overview)</span>
         </button>
 
-        <!-- 2. Courses -->
         <button onclick="switchView('courses')" data-view="courses" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
           </svg>
-          <span>إدارة الدورات والمحتوى</span>
+          <span>إدارة الدورات والفيديوهات</span>
         </button>
 
-        <!-- 3. Students -->
         <button onclick="switchView('students')" data-view="students" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -117,7 +114,6 @@
           <span>إدارة الطلاب والاشتراكات</span>
         </button>
 
-        <!-- 4. Activation Codes -->
         <button onclick="switchView('codes')" data-view="codes" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
@@ -125,7 +121,6 @@
           <span>أكواد التفعيل والاشتراك</span>
         </button>
 
-        <!-- 5. Settings -->
         <button onclick="switchView('settings')" data-view="settings" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-[#5E544B] hover:bg-[#F4ECE1] hover:text-[#8C6239] transition-all text-right">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
@@ -151,7 +146,7 @@
         <div class="flex-grow">
           <p class="text-xs font-bold text-[#332B25]">أدمن المنصة</p>
           <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> متصل
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> متصل بـ Firebase
           </span>
         </div>
       </div>
@@ -175,13 +170,12 @@
       </div>
 
       <div class="flex items-center gap-3 sm:gap-4">
-        <!-- Live Firebase Status Indicator -->
         <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
           <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span>Firebase Ready</span>
+          <span>athar-28099 متصل</span>
         </div>
 
-        <!-- Notifications Bell & Dropdown -->
+        <!-- Notifications -->
         <div class="relative">
           <button onclick="toggleNotifications()" class="relative p-2.5 text-[#5E544B] hover:text-[#8C6239] hover:bg-[#FAF7F2] rounded-xl transition-colors">
             <span id="notifBadge" class="hidden absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#8C6239] text-white text-[9px] font-bold flex items-center justify-center">0</span>
@@ -190,7 +184,6 @@
             </svg>
           </button>
 
-          <!-- Notifications Dropdown Box -->
           <div id="notificationsDropdown" class="hidden absolute left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-[#EBE3D5] z-50 overflow-hidden">
             <div class="p-3.5 bg-[#FAF7F2] border-b border-[#EBE3D5] flex items-center justify-between">
               <h4 class="font-bold text-xs text-[#332B25] font-heading">التنبيهات والإشعارات</h4>
@@ -199,9 +192,7 @@
                 <button onclick="clearNotifications()" class="text-gray-400 hover:text-red-500 font-semibold">مسح</button>
               </div>
             </div>
-            <div id="notificationsList" class="max-h-72 overflow-y-auto divide-y divide-[#F4ECE1]">
-              <!-- Injected by admin.js -->
-            </div>
+            <div id="notificationsList" class="max-h-72 overflow-y-auto divide-y divide-[#F4ECE1]"></div>
           </div>
         </div>
       </div>
@@ -213,7 +204,6 @@
       <!-- ================= SECTION 1: OVERVIEW ================= -->
       <section id="section-overview" class="admin-section space-y-8">
         
-        <!-- Welcome Banner -->
         <div class="bg-gradient-to-r from-[#FAF7F2] via-white to-[#F4ECE1] p-6 sm:p-8 rounded-3xl border border-[#EBE3D5] flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
           <div>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F4ECE1] text-[#8C6239] text-xs font-bold mb-3 border border-[#EBE3D5]">
@@ -229,22 +219,20 @@
           </div>
           <div class="flex items-center gap-3 flex-wrap">
             <button onclick="switchView('courses'); openModal('addCourseModal');" class="btn-athar-primary py-2.5 px-4 text-xs font-bold flex items-center gap-2">
-              <span>+ إضافة دورة جديدة</span>
+              <span>+ إضافة دورة وفيديوهات</span>
             </button>
             <button onclick="switchView('codes')" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex items-center gap-2">
               <span>توليد أكواد تفعيل</span>
             </button>
-            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex items-center gap-2" title="تصدير بيانات الطلاب إلى ملف Excel">
+            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2.5 px-4 text-xs font-bold flex items-center gap-2">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
               <span>تصدير تقرير الطلاب (CSV)</span>
             </button>
           </div>
         </div>
 
-        <!-- 4 Quick Stats Cards -->
+        <!-- 4 Stats Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          
-          <!-- Stat 1: Total Students -->
           <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm flex items-center justify-between">
             <div>
               <p class="text-xs font-bold text-[#6B625B]">إجمالي الطلاب المشتركين</p>
@@ -254,29 +242,23 @@
               </span>
             </div>
             <div class="w-12 h-12 rounded-2xl bg-[#EBF2EC] text-[#6B8E67] flex items-center justify-center font-bold">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-              </svg>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             </div>
           </div>
 
-          <!-- Stat 2: Active Courses -->
           <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm flex items-center justify-between">
             <div>
               <p class="text-xs font-bold text-[#6B625B]">الدورات والمسارات النشطة</p>
               <h3 id="statActiveCourses" class="text-2xl font-extrabold text-[#332B25] mt-1 font-heading">0</h3>
               <span class="text-[11px] font-bold text-[#8C6239] flex items-center gap-1 mt-2">
-                <span>4 مسارات أساسية</span>
+                <span>مسارات متكاملة</span>
               </span>
             </div>
             <div class="w-12 h-12 rounded-2xl bg-[#F8EFE4] text-[#A37036] flex items-center justify-center font-bold">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
             </div>
           </div>
 
-          <!-- Stat 3: Monthly Revenue -->
           <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm flex items-center justify-between">
             <div>
               <p class="text-xs font-bold text-[#6B625B]">إيرادات الاشتراكات التقديرية</p>
@@ -286,13 +268,10 @@
               </span>
             </div>
             <div class="w-12 h-12 rounded-2xl bg-[#F4ECE1] text-[#8C6239] flex items-center justify-center font-bold">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
           </div>
 
-          <!-- Stat 4: Completion Rate -->
           <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm flex items-center justify-between">
             <div>
               <p class="text-xs font-bold text-[#6B625B]">متوسط نسبة إكمال الدروس</p>
@@ -302,12 +281,9 @@
               </span>
             </div>
             <div class="w-12 h-12 rounded-2xl bg-[#FCECEE] text-[#C25E68] flex items-center justify-center font-bold">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
             </div>
           </div>
-
         </div>
 
         <!-- Recent Enrollments Table -->
@@ -332,9 +308,7 @@
                   <th class="py-3 px-4 font-bold">حالة الحساب</th>
                 </tr>
               </thead>
-              <tbody id="recentStudentsOverviewTable">
-                <!-- Rendered dynamically -->
-              </tbody>
+              <tbody id="recentStudentsOverviewTable"></tbody>
             </table>
           </div>
         </div>
@@ -346,15 +320,15 @@
         
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h2 class="text-2xl font-bold text-[#332B25] font-heading">إدارة الدورات والمحتوى التعليمي</h2>
-            <p class="text-xs text-[#6B625B]">إنشاء المناهج، تنظيم الفصول والدروس، وتحديد أسعار الاشتراكات</p>
+            <h2 class="text-2xl font-bold text-[#332B25] font-heading">إدارة الدورات، الأغلفة والفيديوهات</h2>
+            <p class="text-xs text-[#6B625B]">إضافة دورات جديدة مع صورة الغلاف، وصف الكورس، السعر، ورفع الفيديوهات للدروس</p>
           </div>
           <button onclick="openModal('addCourseModal')" class="btn-athar-primary py-2.5 px-5 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm">
             <span>+ إضافة دورة جديدة</span>
           </button>
         </div>
 
-        <!-- Courses Cards Grid -->
+        <!-- Courses Cards Grid with Cover Images -->
         <div id="coursesListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Rendered dynamically by admin.js -->
         </div>
@@ -371,7 +345,6 @@
           </div>
 
           <div class="flex items-center gap-3 w-full sm:w-auto">
-            <!-- Search Input -->
             <div class="relative flex-grow sm:w-64">
               <input type="text" id="studentSearchInput" oninput="onStudentSearch(event)" placeholder="بحث بالاسم أو الهاتف..."
                      class="w-full pr-10 pl-4 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white focus:outline-none focus:ring-2 focus:ring-[#8C6239]">
@@ -380,26 +353,22 @@
               </svg>
             </div>
 
-            <!-- Add Student Manually Button -->
             <button onclick="openModal('addStudentModal')" class="btn-athar-primary py-2 px-3 text-xs font-bold whitespace-nowrap">
               + إضافة طالب
             </button>
 
-            <!-- Export CSV -->
-            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2 px-3 text-xs font-bold whitespace-nowrap" title="تصدير جدول الطلاب">
+            <button onclick="exportStudentsCSV()" class="btn-athar-outline py-2 px-3 text-xs font-bold whitespace-nowrap">
               تصدير CSV
             </button>
           </div>
         </div>
 
-        <!-- Students Filter Bar -->
         <div class="flex gap-2">
           <button onclick="filterStudents('all')" data-filter="all" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white">الكل</button>
           <button onclick="filterStudents('active')" data-filter="active" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المفعلون فقط</button>
           <button onclick="filterStudents('blocked')" data-filter="blocked" class="student-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المحظورون</button>
         </div>
 
-        <!-- Students Table -->
         <div class="bg-white rounded-2xl border border-[#EBE3D5] shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full text-right text-sm">
@@ -413,9 +382,7 @@
                   <th class="py-3 px-4 font-bold">الإجراءات</th>
                 </tr>
               </thead>
-              <tbody id="studentsTableBody">
-                <!-- Rendered dynamically -->
-              </tbody>
+              <tbody id="studentsTableBody"></tbody>
             </table>
           </div>
         </div>
@@ -440,7 +407,6 @@
           </div>
         </div>
 
-        <!-- Code Generator Tool -->
         <div class="bg-white rounded-2xl p-6 border border-[#EBE3D5] shadow-sm">
           <h3 class="font-bold text-xs sm:text-sm text-[#332B25] mb-4 flex items-center gap-2">
             <svg class="w-4 h-4 text-[#8C6239]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
@@ -482,14 +448,12 @@
           </form>
         </div>
 
-        <!-- Filter codes tabs -->
         <div class="flex gap-2">
           <button onclick="filterCodes('all')" data-filter="all" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-[#8C6239] text-white">الكل</button>
           <button onclick="filterCodes('available')" data-filter="available" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المتاحة فقط</button>
           <button onclick="filterCodes('used')" data-filter="used" class="code-filter-btn px-3.5 py-1.5 text-xs font-bold rounded-xl bg-white border border-[#E0D6C8] text-[#5E544B] hover:bg-[#F4ECE1]">المستخدمة</button>
         </div>
 
-        <!-- Generated Codes Table -->
         <div class="bg-white rounded-2xl border border-[#EBE3D5] shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full text-right text-sm">
@@ -503,9 +467,7 @@
                   <th class="py-3 px-4 font-bold">حذف</th>
                 </tr>
               </thead>
-              <tbody id="activationCodesTableBody">
-                <!-- Rendered dynamically -->
-              </tbody>
+              <tbody id="activationCodesTableBody"></tbody>
             </table>
           </div>
         </div>
@@ -521,38 +483,36 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          <!-- Firebase Config Card -->
           <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-[#EBE3D5] shadow-sm">
             <div class="flex items-center gap-3 mb-6">
               <div class="w-10 h-10 rounded-xl bg-[#F4ECE1] text-[#8C6239] flex items-center justify-center font-bold">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
               </div>
               <div>
-                <h3 class="font-bold text-base text-[#332B25] font-heading">بيانات مشروع Firebase (Web SDK)</h3>
-                <p class="text-xs text-[#6B625B]">تُحفظ الإعدادات محلياً وتُستخدم لربط Firestore والمصادقة</p>
+                <h3 class="font-bold text-base text-[#332B25] font-heading">بيانات مشروع Firebase (athar-28099)</h3>
+                <p class="text-xs text-[#6B625B]">متصل حالياً بنجاح مع Firestore & Realtime Database</p>
               </div>
             </div>
 
             <form id="firebaseConfigForm" class="space-y-4">
               <div>
                 <label class="block text-xs font-bold text-[#4A423B] mb-1">API Key</label>
-                <input type="text" id="fbApiKey" placeholder="AIzaSy..." class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
+                <input type="text" id="fbApiKey" value="AIzaSyBGSAINAlqmeqPgd3jIkcFLDAhuEpRqNKE" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
               </div>
 
               <div>
                 <label class="block text-xs font-bold text-[#4A423B] mb-1">Auth Domain</label>
-                <input type="text" id="fbAuthDomain" placeholder="athar-academy.firebaseapp.com" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
+                <input type="text" id="fbAuthDomain" value="athar-28099.firebaseapp.com" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-bold text-[#4A423B] mb-1">Project ID</label>
-                  <input type="text" id="fbProjectId" placeholder="athar-academy" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
+                  <input type="text" id="fbProjectId" value="athar-28099" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-[#4A423B] mb-1">Storage Bucket</label>
-                  <input type="text" id="fbStorageBucket" placeholder="athar-academy.appspot.com" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
+                  <input type="text" id="fbStorageBucket" value="athar-28099.firebasestorage.app" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
                 </div>
               </div>
 
@@ -569,12 +529,9 @@
             </form>
           </div>
 
-          <!-- Academy Branding & System Tools -->
           <div class="lg:col-span-5 space-y-6">
-            
             <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm">
               <h3 class="font-bold text-sm text-[#332B25] mb-4">هوية وبيانات الأكاديمية</h3>
-              
               <div class="space-y-3 text-xs">
                 <div>
                   <label class="block text-[11px] font-bold text-[#6B625B] mb-1">اسم الأكاديمية الرسمي</label>
@@ -591,7 +548,6 @@
               </div>
             </div>
 
-            <!-- Backup & Restore -->
             <div class="bg-white p-6 rounded-2xl border border-[#EBE3D5] shadow-sm">
               <h3 class="font-bold text-sm text-[#332B25] mb-2">النسخ الاحتياطي للنظام</h3>
               <p class="text-xs text-[#6B625B] mb-4">تنزيل أو استعادة كافة بيانات الطلاب والدورات والأكواد كملف JSON كامل</p>
@@ -600,7 +556,6 @@
                 <button onclick="exportFullBackupJSON()" class="btn-athar-primary py-2 px-3 text-xs font-bold flex-1 text-center">
                   تصدير نسخة احتياطية (JSON)
                 </button>
-
                 <label class="btn-athar-outline py-2 px-3 text-xs font-bold flex-1 text-center cursor-pointer">
                   <span>استعادة نسخة</span>
                   <input type="file" accept=".json" onchange="importBackupJSON(event)" class="hidden">
@@ -613,9 +568,7 @@
                 </button>
               </div>
             </div>
-
           </div>
-
         </div>
 
       </section>
@@ -624,9 +577,9 @@
 
   </div>
 
-  <!-- ================= MODAL: ADD COURSE ================= -->
+  <!-- ================= MODAL: ADD COURSE WITH COVER & VIDEO ================= -->
   <div id="addCourseModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-[#EBE3D5]">
+    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-[#EBE3D5] max-h-[90vh] overflow-y-auto">
       
       <button onclick="closeModal('addCourseModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -634,7 +587,7 @@
 
       <div class="mb-5">
         <h3 class="text-xl font-bold text-[#332B25] font-heading">إضافة دورة تعليمية جديدة</h3>
-        <p class="text-xs text-[#6B625B]">أدخل بيانات الدورة لتظهر تلقائياً في الواجهة والكتالوج</p>
+        <p class="text-xs text-[#6B625B]">تحديد اسم الدورة، صورة الغلاف المعروضة خارجياً، السعر، ووصف المحتوى</p>
       </div>
 
       <form onsubmit="handleAddNewCourse(event)" class="space-y-4">
@@ -643,7 +596,7 @@
           <input type="text" id="newCourseTitle" required placeholder="مثال: تأسيس الخط العربي للأطفال" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-[#4A423B] mb-1">المسار الأساسي</label>
             <select id="newCourseTrack" required class="w-full px-3 py-2.5 rounded-xl border border-[#E0D6C8] text-sm bg-white">
@@ -660,7 +613,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-[#4A423B] mb-1">اسم المعلم / المدرب</label>
             <input type="text" id="newCourseInstructor" required placeholder="أ. سارة خالد" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
@@ -670,6 +623,40 @@
             <label class="block text-xs font-bold text-[#4A423B] mb-1">سعر الاشتراك</label>
             <input type="text" id="newCoursePrice" placeholder="180 ر.س أو مجاني" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
           </div>
+        </div>
+
+        <!-- Course Cover Image Uploader / URL -->
+        <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] space-y-3">
+          <label class="block text-xs font-bold text-[#332B25]">صورة غلاف الكورس (التي تظهر في البطاقة خارجياً):</label>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">رفع صورة من جهازك:</label>
+              <input type="file" id="newCourseCoverFile" accept="image/*" class="w-full text-xs text-gray-500 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#8C6239] file:text-white hover:file:bg-[#724e2c] cursor-pointer">
+            </div>
+            <div>
+              <label class="block text-[11px] text-gray-500 mb-1">أو كتابة رابط صورة مباشر:</label>
+              <input type="url" id="newCourseCoverUrl" placeholder="https://example.com/image.jpg" class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white">
+            </div>
+          </div>
+
+          <!-- Cover Image Live Preview Box -->
+          <div id="courseCoverPreviewBox" class="hidden mt-2">
+            <span class="block text-[10px] text-gray-400 mb-1">معاينة الغلاف:</span>
+            <div class="relative h-32 w-full rounded-xl overflow-hidden border border-[#E0D6C8]">
+              <img id="courseCoverPreview" src="" alt="معاينة الغلاف" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">وصف الكورس والأهداف</label>
+          <textarea id="newCourseDescription" rows="3" placeholder="اكتب نبذة مختصرة عن الكورس وأهم المهارات التي سيكتسبها الطفل..." class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">رابط فيديو تقديمي تجريبي (اختياري)</label>
+          <input type="url" id="newCourseSampleVideo" placeholder="https://www.youtube.com/watch?v=... أو رابط مباشر" class="w-full px-4 py-2 text-xs rounded-xl border border-[#E0D6C8] font-mono" dir="ltr">
         </div>
 
         <div class="pt-3 flex gap-3">
@@ -683,6 +670,69 @@
       </form>
 
     </div>
+  </div>
+
+  <!-- ================= MODAL: ADD LESSON WITH VIDEO ================= -->
+  <div id="addLessonModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-[#EBE3D5]">
+      
+      <button onclick="closeModal('addLessonModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-xl font-bold text-[#332B25] font-heading">إضافة درس وفيديو جديد</h3>
+        <p class="text-xs text-[#6B625B]">تحديد عنوان الدرس وإرفاق رابط الفيديو أو ملف الفيديو</p>
+      </div>
+
+      <form onsubmit="saveNewLessonWithVideo(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">عنوان الدرس</label>
+          <input type="text" id="newLessonTitle" required placeholder="مثال: الدرس الثاني: رحلة الحروف مع الحركات" class="w-full px-4 py-2.5 rounded-xl border border-[#E0D6C8] text-sm">
+        </div>
+
+        <div class="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D6C8] space-y-3">
+          <label class="block text-xs font-bold text-[#332B25]">فيديو الدرس:</label>
+          
+          <div>
+            <label class="block text-[11px] text-gray-500 mb-1">رابط الفيديو (YouTube، Vimeo، أو رابط MP4 مباشر):</label>
+            <input type="text" id="newLessonVideoUrl" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 text-xs rounded-xl border border-[#E0D6C8] bg-white font-mono" dir="ltr">
+          </div>
+
+          <div class="relative flex py-1 items-center">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="flex-shrink mx-2 text-[10px] text-gray-400">أو</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] text-gray-500 mb-1">رفع ملف فيديو من الجهاز (MP4/WebM):</label>
+            <input type="file" id="newLessonVideoFile" accept="video/*" onchange="handleLessonVideoFileUpload(event)" class="w-full text-xs text-gray-500 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#8C6239] file:text-white hover:file:bg-[#724e2c] cursor-pointer">
+            <span id="lessonVideoFileName" class="hidden text-[11px] font-bold text-emerald-700 mt-1 block"></span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-[#4A423B] mb-1">المدة الزمنية التقديرية للدرس</label>
+          <input type="text" id="newLessonDuration" value="15 دقيقة" class="w-full px-4 py-2 text-xs rounded-xl border border-[#E0D6C8]">
+        </div>
+
+        <div class="pt-3 flex gap-3">
+          <button type="submit" class="btn-athar-primary py-2.5 px-6 text-sm font-bold flex-1">
+            حفظ الدرس والفيديو
+          </button>
+          <button type="button" onclick="closeModal('addLessonModal')" class="btn-athar-outline py-2.5 px-4 text-sm font-bold">
+            إلغاء
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL: VIDEO PLAYER ================= -->
+  <div id="videoPlayerModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div id="videoPlayerModalContent" class="w-full flex justify-center"></div>
   </div>
 
   <!-- ================= MODAL: ADD STUDENT ================= -->
@@ -741,9 +791,7 @@
 
   <!-- ================= MODAL: CHAPTERS & LESSONS ================= -->
   <div id="chaptersModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-    <div id="chaptersModalContent" class="w-full flex justify-center">
-      <!-- Injected by admin.js -->
-    </div>
+    <div id="chaptersModalContent" class="w-full flex justify-center"></div>
   </div>
 
   <!-- Toast Notification Container -->
@@ -757,6 +805,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
   <!-- JavaScript Modules -->
+  <script src="assets/js/courses-data.js"></script>
   <script src="assets/js/firebase-config.js"></script>
   <script src="assets/js/admin.js"></script>
   <script>

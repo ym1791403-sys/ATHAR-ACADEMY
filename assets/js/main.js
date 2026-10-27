@@ -1,5 +1,6 @@
 // ========================================================
-// ATHAR ACADEMY (أكاديمية أثر) - Interactive JavaScript (Clean & Functional)
+// ATHAR ACADEMY (أكاديمية أثر) - Main Frontend Interactive Logic
+// Enhanced with Course Covers, Video Previews, Price & Chapters
 // ========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,16 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initUserSession();
 });
 
-// Clean Audio Effects via Web Audio API (No external sound files)
+// Audio Feedback System
 let soundEnabled = true;
 const AudioEffects = {
   ctx: null,
   init() {
     if (!this.ctx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        this.ctx = new AudioContext();
-      }
+      if (AudioContext) this.ctx = new AudioContext();
     }
   },
   playSuccess() {
@@ -67,13 +66,10 @@ const AudioEffects = {
 window.toggleSound = function() {
   soundEnabled = !soundEnabled;
   const btn = document.getElementById('soundToggleBtn');
-  if (btn) {
-    btn.innerHTML = soundEnabled ? 'المؤثرات الصوتية: مفعّلة' : 'المؤثرات الصوتية: مكتومة';
-  }
+  if (btn) btn.innerHTML = soundEnabled ? 'المؤثرات الصوتية: مفعّلة' : 'المؤثرات الصوتية: مكتومة';
   showMainToast(soundEnabled ? 'تم تفعيل الصوت' : 'تم كتم الصوت');
 };
 
-// Clean Professional Toast Notifications (SVG icons, Zero Emojis)
 function showMainToast(message, type = 'success') {
   let container = document.getElementById('mainToastContainer');
   if (!container) {
@@ -128,108 +124,162 @@ window.logoutUser = function() {
   setTimeout(() => location.reload(), 600);
 };
 
-// Render Course Cards
+// Render Course Cards with Cover Images and Prices
 function initCoursesGrid() {
   const container = document.getElementById('coursesTrackContainer');
   if (!container) return;
 
-  container.innerHTML = AtharCoursesData.map((course) => {
+  const storedCourses = localStorage.getItem('athar_admin_courses');
+  const courses = storedCourses ? JSON.parse(storedCourses) : AtharCoursesData;
+
+  container.innerHTML = courses.map((course) => {
+    const cover = course.coverImage || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80";
+    const price = course.price || "180 ر.س";
+    const instructor = course.instructor || "أكاديمية أثر";
+
     return `
-      <div class="track-card p-6 flex flex-col justify-between items-center text-center cursor-pointer group"
-           onclick="openCourseModal('${course.id}')"
-           style="background-color: ${course.bgColor};">
+      <div class="track-card flex flex-col justify-between cursor-pointer group overflow-hidden bg-white rounded-3xl border border-[#EBE3D5] shadow-sm hover:shadow-lg transition-all"
+           onclick="openCourseModal('${course.id}')">
         
-        <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
-          ${course.icon}
+        <!-- Cover Image on Outside Card -->
+        <div class="relative h-44 w-full bg-[#FAF7F2] overflow-hidden">
+          <img src="${cover}" alt="${course.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          
+          <div class="absolute top-3 right-3">
+            <span class="badge-age bg-white/95 text-[#8C6239] font-bold text-xs shadow-sm backdrop-blur-sm">
+              ${course.ageGroup || 'من 3 - 7 سنوات'}
+            </span>
+          </div>
+
+          <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between text-white">
+            <span class="text-xs font-semibold opacity-90">${instructor}</span>
+            <span class="text-xs font-extrabold bg-[#8C6239] px-2.5 py-1 rounded-lg">${price}</span>
+          </div>
         </div>
 
-        <h3 class="text-xl font-bold text-[#332B25] mb-2 font-heading">
-          ${course.title}
-        </h3>
+        <div class="p-5 flex flex-col flex-grow justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-[#332B25] mb-2 font-heading">
+              ${course.title}
+            </h3>
 
-        <p class="text-xs sm:text-sm text-[#5E544B] leading-relaxed mb-6 flex-grow">
-          ${course.tagline}
-        </p>
+            <p class="text-xs sm:text-sm text-[#5E544B] leading-relaxed mb-4 line-clamp-2">
+              ${course.tagline || course.description}
+            </p>
+          </div>
 
-        <div class="w-full flex items-center justify-between pt-4 border-t border-[#E8DEC8]">
-          <span class="badge-age bg-[#8C6239] text-white">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            ${course.ageGroup}
-          </span>
-          
-          <button class="text-xs font-bold text-[#8C6239] group-hover:underline flex items-center gap-1">
-            تفاصيل
-            <svg class="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>
+          <div class="w-full flex items-center justify-between pt-3 border-t border-[#E8DEC8]">
+            <span class="text-xs font-bold text-[#8C6239] bg-[#F4ECE1] px-3 py-1 rounded-full">
+              ${course.track || 'مسار تأسيسي'}
+            </span>
+            
+            <button class="text-xs font-bold text-[#8C6239] group-hover:underline flex items-center gap-1">
+              تفاصيل والمنهج
+              <svg class="w-3 h-3 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     `;
   }).join('');
 }
 
-// Course Modal Details
+// Course Modal Details with Cover Image, Price & Lesson Videos
 window.openCourseModal = function(courseId) {
   AudioEffects.playClick();
-  const course = AtharCoursesData.find(c => c.id === courseId);
+  const storedCourses = localStorage.getItem('athar_admin_courses');
+  const courses = storedCourses ? JSON.parse(storedCourses) : AtharCoursesData;
+  const course = courses.find(c => c.id === courseId) || AtharCoursesData.find(c => c.id === courseId);
   if (!course) return;
 
   const modal = document.getElementById('courseModal');
   const modalContent = document.getElementById('courseModalContent');
   if (!modal || !modalContent) return;
 
+  const cover = course.coverImage || "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80";
+  const chapters = course.chapters || [];
+
   modalContent.innerHTML = `
-    <div class="relative bg-white rounded-3xl p-6 md:p-8 max-w-xl w-full mx-4 shadow-2xl border border-[#EBE3D5]">
-      <button onclick="closeModal('courseModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100 transition-colors">
+    <div class="relative bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full mx-4 shadow-2xl border border-[#EBE3D5] max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('courseModal')" class="absolute top-5 left-5 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100 transition-colors z-10">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
 
-      <div class="flex items-center gap-4 mb-5">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center p-3" style="background-color: ${course.bgColor}">
-          ${course.icon}
+      <!-- Course Cover Banner -->
+      <div class="relative h-48 sm:h-56 w-full rounded-2xl overflow-hidden mb-6 shadow-sm border border-[#E8DEC8]">
+        <img src="${cover}" alt="${course.title}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+        <div class="absolute bottom-4 right-4 left-4 flex items-end justify-between text-white">
+          <div>
+            <span class="text-xs font-bold text-white bg-[#8C6239] px-3 py-1 rounded-full">${course.track || 'مسار تعليمي'}</span>
+            <h2 class="text-xl sm:text-2xl font-bold mt-2 font-heading">${course.title}</h2>
+          </div>
+          <span class="text-base font-extrabold bg-white text-[#8C6239] px-3.5 py-1 rounded-xl shadow-md">${course.price || 'مجاني'}</span>
         </div>
-        <div>
-          <span class="text-xs font-bold text-[#8C6239] bg-[#F4ECE1] px-3 py-1 rounded-full">${course.ageGroup}</span>
-          <h2 class="text-2xl font-bold text-[#332B25] mt-1 font-heading">${course.title}</h2>
-        </div>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs text-gray-500 mb-4 pb-4 border-b border-[#E8DEC8]">
+        <span>المعلم: <strong class="text-[#332B25]">${course.instructor || 'أكاديمية أثر'}</strong></span>
+        <span>•</span>
+        <span>الفئة: <strong class="text-[#332B25]">${course.ageGroup || 'من 3 - 7 سنوات'}</strong></span>
       </div>
 
       <p class="text-sm text-[#5E544B] leading-relaxed mb-6">
-        ${course.description}
+        ${course.description || course.tagline}
       </p>
 
-      <h4 class="font-bold text-[#332B25] mb-3 text-sm flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-[#8C6239]"></span>
-        أهداف المسار التعليمي لطفلك:
-      </h4>
-      <ul class="space-y-2.5 mb-6">
-        ${course.objectives.map(obj => `
-          <li class="flex items-center gap-3 text-xs sm:text-sm text-[#4A423B]">
-            <svg class="w-4 h-4 text-[#8C6239] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-            </svg>
-            ${obj}
-          </li>
-        `).join('')}
-      </ul>
+      <!-- Chapters & Lessons Syllabus with Videos -->
+      <div class="mb-6">
+        <h4 class="font-bold text-[#332B25] mb-3 text-sm flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#8C6239]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>منهج وفيديوهات الدورة:</span>
+        </h4>
 
-      <div class="bg-[#FAF7F2] p-4 rounded-2xl border border-[#EBE3D5] flex items-center justify-between mb-6">
-        <div>
-          <span class="text-xs text-gray-500 block">عدد الدروس والأنشطة</span>
-          <span class="text-base font-bold text-[#8C6239]">${course.lessonsCount} درساً تفاعلياً</span>
-        </div>
-        <div class="text-left">
-          <span class="text-xs text-gray-500 block">المستوى التعليمي</span>
-          <span class="text-sm font-semibold text-[#332B25]">${course.level}</span>
+        <div class="space-y-3">
+          ${chapters.length === 0 ? `<p class="text-xs text-gray-400">سيتم إضافة الفصول والدروس قريباً.</p>` : ''}
+          ${chapters.map((ch, idx) => {
+            const lessons = ch.lessons || [];
+            return `
+              <div class="border border-[#E0D6C8] rounded-2xl p-4 bg-[#FAF7F2]">
+                <h5 class="font-bold text-xs sm:text-sm text-[#332B25] mb-2.5 flex items-center gap-2">
+                  <span class="w-5 h-5 rounded-md bg-[#8C6239] text-white flex items-center justify-center text-[10px] font-bold">${idx + 1}</span>
+                  ${ch.title}
+                </h5>
+
+                <div class="space-y-1.5 pr-3 border-r-2 border-[#C59A58]">
+                  ${lessons.map(ls => {
+                    const lTitle = typeof ls === 'object' ? ls.title : ls;
+                    const vUrl = typeof ls === 'object' ? ls.videoUrl : '';
+                    const dur = typeof ls === 'object' ? ls.duration : '10 دقائق';
+
+                    return `
+                      <div class="flex items-center justify-between bg-white py-2 px-3 rounded-xl border border-[#EBE3D5] text-xs">
+                        <span class="text-[#332B25] font-semibold">${lTitle}</span>
+                        <div class="flex items-center gap-2">
+                          <span class="text-[11px] text-gray-400">${dur || ''}</span>
+                          ${vUrl ? `
+                            <button onclick="openVideoPlayerModal('${encodeURIComponent(vUrl)}', '${encodeURIComponent(lTitle)}')" class="btn-athar-primary py-1 px-2.5 text-[11px] font-bold flex items-center gap-1 shadow-none">
+                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                              <span>مشاهدة</span>
+                            </button>
+                          ` : ''}
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-3">
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
         <button onclick="bookTrialForCourse('${course.title}')" class="btn-athar-primary py-3 px-6 flex-1 text-center font-bold text-sm">
           احجز حصة تقييم مجانية لطفلك
         </button>
@@ -237,6 +287,38 @@ window.openCourseModal = function(courseId) {
           إغلاق
         </button>
       </div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+};
+
+// Video Player Modal for Public Website
+window.openVideoPlayerModal = function(encUrl, encTitle) {
+  const url = decodeURIComponent(encUrl);
+  const title = decodeURIComponent(encTitle);
+
+  const modal = document.getElementById('videoPlayerModal');
+  const content = document.getElementById('videoPlayerModalContent');
+  if (!modal || !content) return;
+
+  let playerHtml = '';
+  if (url.includes('youtube.com') || url.includes('vimeo.com') || url.includes('drive.google.com')) {
+    playerHtml = `<iframe src="${url}" class="w-full h-72 sm:h-96 rounded-2xl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  } else {
+    playerHtml = `<video src="${url}" controls class="w-full max-h-96 rounded-2xl bg-black" autoplay></video>`;
+  }
+
+  content.innerHTML = `
+    <div class="relative bg-white rounded-3xl p-4 sm:p-6 max-w-2xl w-full mx-4 shadow-2xl border border-[#EBE3D5]">
+      <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#EBE3D5]">
+        <h3 class="font-bold text-sm sm:text-base text-[#332B25] truncate">${title}</h3>
+        <button onclick="closeModal('videoPlayerModal')" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-100">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      ${playerHtml}
     </div>
   `;
 
@@ -354,7 +436,7 @@ function initModals() {
   });
 }
 
-// Booking Form Persistence & Feedback
+// Booking Form Persistence & Live Firebase Database Write
 function initBookingForm() {
   const form = document.getElementById('trialBookingForm');
   if (!form) return;
@@ -368,7 +450,6 @@ function initBookingForm() {
     const courseTrack = document.getElementById('courseTrack')?.value || 'عام';
     const parentPhone = document.getElementById('parentPhone')?.value || '';
 
-    // Save to LocalStorage
     const existingBookings = JSON.parse(localStorage.getItem('athar_trial_bookings') || '[]');
     const newBooking = {
       id: `book-${Date.now()}`,
@@ -381,7 +462,6 @@ function initBookingForm() {
     existingBookings.unshift(newBooking);
     localStorage.setItem('athar_trial_bookings', JSON.stringify(existingBookings));
 
-    // Live Firebase Database Write with Open Rules
     if (window.FirebaseService) {
       window.FirebaseService.saveTrialBooking(newBooking);
     }
@@ -429,7 +509,6 @@ window.bookTrialForCourse = function(courseName) {
   }
 };
 
-// Switch between Login and Register tabs
 window.switchAuthTab = function(tab) {
   const loginForm = document.getElementById('loginFormContent');
   const regForm = document.getElementById('registerFormContent');
@@ -453,7 +532,6 @@ window.switchAuthTab = function(tab) {
   }
 };
 
-// Handle Login Submission
 window.handleUserLogin = function(event) {
   event.preventDefault();
   const emailOrPhone = document.getElementById('loginIdentifier')?.value || 'ولي الأمر';
@@ -467,7 +545,6 @@ window.handleUserLogin = function(event) {
   setTimeout(() => location.reload(), 400);
 };
 
-// Handle Registration Submission
 window.handleUserRegister = function(event) {
   event.preventDefault();
   const name = document.getElementById('regName')?.value || 'ولي أمر جديد';
@@ -482,7 +559,6 @@ window.handleUserRegister = function(event) {
   setTimeout(() => location.reload(), 400);
 };
 
-// Forgot Password Prompt
 window.handleForgotPassword = function() {
   const contact = prompt('يرجى كتابة رقم الجوال أو البريد الإلكتروني المسجل:');
   if (contact) {
