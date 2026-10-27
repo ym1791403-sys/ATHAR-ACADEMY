@@ -1,49 +1,81 @@
 /* ========================================================
-   ATHAR ACADEMY (أكاديمية أثر) - Custom Stylesheet
-   Warm earthy gold & ivory palette, playful elegance
+   ATHAR ACADEMY (أكاديمية أثر) - Premium Typography & Responsive Engine
+   World-class Arabic typography, smooth font rendering, cross-device scaling
    ======================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;800&family=Readex+Pro:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&family=Readex+Pro:wght@400;500;600;700&display=swap');
 
 :root {
   --color-primary: #8C6239;
-  --color-primary-hover: #754f2a;
+  --color-primary-hover: #724e2c;
   --color-primary-light: #F4ECE1;
   --color-primary-gold: #C59A58;
   --color-accent-gold: #D4AF37;
   --color-bg-ivory: #FAF7F2;
   --color-bg-card: #FFFFFF;
-  --color-text-main: #332B25;
-  --color-text-muted: #6B625B;
-  --color-badge-quran: #EBF2EC;
-  --color-badge-arabic: #F8EFE4;
-  --color-badge-english: #E8F0EA;
-  --color-badge-math: #FCECEE;
-  --font-tajawal: 'Tajawal', sans-serif;
-  --font-cairo: 'Cairo', sans-serif;
+  --color-text-main: #2D251F;
+  --color-text-muted: #5C534B;
+  --font-tajawal: 'Tajawal', system-ui, -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif;
+  --font-cairo: 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif;
+  --font-readex: 'Readex Pro', system-ui, -apple-system, sans-serif;
+}
+
+/* Global Font Optimization */
+html {
+  font-family: var(--font-tajawal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
-  font-family: var(--font-tajawal);
   background-color: var(--color-bg-ivory);
   color: var(--color-text-main);
-  overflow-x: hidden;
   direction: rtl;
-  scroll-behavior: smooth;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.65;
+  letter-spacing: normal; /* In Arabic, normal tracking ensures proper letter joining */
 }
 
-h1, h2, h3, h4, .font-heading {
+/* Headings Typography */
+h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-cairo);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }
 
-/* Background gradient & decorative texture */
+/* Responsive Fluid Typography */
+.hero-title-fluid {
+  font-size: clamp(2rem, 5vw + 0.75rem, 3.85rem);
+  line-height: 1.25;
+}
+
+.section-title-fluid {
+  font-size: clamp(1.6rem, 3.5vw + 0.5rem, 2.5rem);
+  line-height: 1.3;
+}
+
+/* Avoid unwanted iOS Safari zoom on input focus */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Background Gradients */
 .hero-gradient-bg {
-  background: radial-gradient(circle at 85% 15%, rgba(243, 234, 218, 0.7) 0%, transparent 60%),
-              radial-gradient(circle at 15% 85%, rgba(235, 240, 236, 0.6) 0%, transparent 50%),
+  background: radial-gradient(circle at 85% 15%, rgba(243, 234, 218, 0.75) 0%, transparent 60%),
+              radial-gradient(circle at 15% 85%, rgba(235, 240, 236, 0.65) 0%, transparent 50%),
               #FAF7F2;
 }
 
-/* Custom Soft Shadows */
+/* Shadows */
 .athar-shadow-sm {
   box-shadow: 0 4px 15px -2px rgba(140, 98, 57, 0.08);
 }
@@ -56,14 +88,19 @@ h1, h2, h3, h4, .font-heading {
   box-shadow: 0 20px 35px -5px rgba(140, 98, 57, 0.16), 0 8px 12px -3px rgba(140, 98, 57, 0.08);
 }
 
-/* Button & Action Styles */
+/* Button & Action Styles with Proper Touch Targets (Min 44px) */
 .btn-athar-primary {
   background-color: var(--color-primary);
   color: #FFFFFF;
   border-radius: 9999px;
-  font-weight: 600;
+  font-weight: 700;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 12px rgba(140, 98, 57, 0.25);
+  touch-action: manipulation;
 }
 
 .btn-athar-primary:hover {
@@ -80,9 +117,14 @@ h1, h2, h3, h4, .font-heading {
   border: 1.5px solid var(--color-primary);
   color: var(--color-primary);
   border-radius: 9999px;
-  font-weight: 600;
+  font-weight: 700;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.25s ease;
   background-color: transparent;
+  touch-action: manipulation;
 }
 
 .btn-athar-outline:hover {
@@ -90,10 +132,10 @@ h1, h2, h3, h4, .font-heading {
   transform: translateY(-1px);
 }
 
-/* Feature & Track Cards */
+/* Cards */
 .track-card {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(224, 214, 200, 0.45);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(224, 214, 200, 0.6);
   border-radius: 1.5rem;
   background: #FFFFFF;
   position: relative;
@@ -101,95 +143,74 @@ h1, h2, h3, h4, .font-heading {
 }
 
 .track-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 22px 36px -10px rgba(140, 98, 57, 0.15);
-  border-color: rgba(197, 154, 88, 0.5);
-}
-
-.track-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #C59A58, #8C6239);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.track-card:hover::before {
-  opacity: 1;
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(140, 98, 57, 0.16);
+  border-color: rgba(197, 154, 88, 0.6);
 }
 
 /* Badges */
 .badge-age {
   background-color: #8C6239;
   color: #FFFFFF;
-  font-size: 0.825rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   border-radius: 9999px;
-  padding: 0.35rem 1.1rem;
+  padding: 0.35rem 0.9rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
 }
 
-/* Animated Floating Elements */
+/* Floating Elements */
 @keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(2deg);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .animate-float {
-  animation: floatSlow 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 4s ease-in-out infinite;
+  animation: floatSlow 5s ease-in-out infinite;
 }
 
 /* Hero child photo frame */
 .hero-photo-wrapper {
   position: relative;
   border-radius: 2rem;
-  box-shadow: 0 20px 40px -10px rgba(140, 98, 57, 0.2);
+  box-shadow: 0 20px 40px -10px rgba(140, 98, 57, 0.18);
   border: 4px solid #FFFFFF;
   overflow: hidden;
 }
 
-/* Interactive Mini Quiz/Game Box */
+/* Responsive Table Wrapper with Touch Momentum */
+.table-responsive-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Interactive Playground */
 .interactive-playground {
   background: linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%);
   border: 2px dashed #E0D6C8;
   border-radius: 1.75rem;
 }
 
+/* Responsive Modals */
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: #F4ECE1;
 }
 ::-webkit-scrollbar-thumb {
   background: #C59A58;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #8C6239;
